@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Basel Carz | Diecast Model Cars</title>
+  <meta name="description" content="Basel Carz sells collectible diecast model cars with simple PayPal payment options.">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #121212;
+      --muted: #626262;
+      --line: #dedede;
+      --soft: #f6f6f6;
+      --accent: #111111;
+      --accent-hover: #333333;
+      --radius: 8px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .nav {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      flex-direction: column;
+      text-decoration: none;
+    }
+
+    .brand strong {
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .section {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 56px 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 40px;
+      align-items: center;
+      min-height: 430px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 18px;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background: var(--accent-hover);
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .button.secondary:hover {
+      background: var(--soft);
+    }
+
+    .plain-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      background: #ffffff;
+    }
+
+    .plain-panel h2 {
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .plain-panel p {
+      color: var(--muted);
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quick-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .quick-list span {
+      color: var(--muted);
+    }
+
+    .section-title {
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 10px;
+      font-size: 34px;
+      line-height: 1.1;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      background: #ffffff;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .steps {
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding-left: 48px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 22px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .band {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .shipping {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .price {
+      margin: 14px 0 6px;
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 820px) {
+      .nav {
+        min-height: auto;
+        padding: 18px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .hero,
+      .grid,
+      .shipping {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 44px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .section {
+        padding: 44px 0;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .quick-list li {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="Basel Carz home">
+          <strong>Basel Carz</strong>
+          <span>Collectible diecast model cars</span>
+        </a>
+        <div class="nav-links">
+          <a href="#inventory">Inventory</a>
+          <a href="#shipping">Shipping</a>
+          <a href="#ordering">Ordering</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="section hero">
+        <div>
+          <p class="eyebrow">Basel Carz</p>
+          <h1>Rare model cars, simple PayPal ordering.</h1>
+          <p class="lead">Browse collectible diecast and resin model cars from Basel Carz. Orders are handled by request, with PayPal available for payment after availability is confirmed.</p>
+          <div class="actions">
+            <a class="button" href="#ordering">How to Order</a>
+            <a class="button secondary" href="#shipping">View Shipping Rates</a>
+          </div>
+        </div>
+
+        <aside class="plain-panel" aria-label="Store details">
+          <h2>Store Details</h2>
+          <p>Availability changes often. Final item details and payment instructions are confirmed before purchase.</p>
+          <ul class="quick-list">
+            <li><strong>Currency</strong><span>USD</span></li>
+            <li><strong>Payment</strong><span>PayPal</span></li>
+            <li><strong>Checkout</strong><span>No direct checkout</span></li>
+            <li><strong>Shipping</strong><span>USA and international</span></li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="section" id="inventory">
+        <div class="section-title">
+          <h2>Shop the live inventory</h2>
+          <p>This website keeps things simple. Product availability, photos, item condition, and final pricing are confirmed directly by Basel Carz before payment.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>1:18 Scale Models</h3>
+            <p>Collector-focused model cars with detailed presentation and limited availability.</p>
+          </article>
+          <article class="card">
+            <h3>Rare Finds</h3>
+            <p>Hard-to-find pieces are added as they become available.</p>
+          </article>
+          <article class="card">
+            <h3>Updated Often</h3>
+            <p>Available models can change quickly, so final availability is confirmed before payment.</p>
+          </article>
+        </div>
+
+        <div class="actions">
+          <a class="button" href="#ordering">Request Availability</a>
+        </div>
+      </section>
+
+      <section class="band" id="shipping">
+        <div class="section">
+          <div class="section-title">
+            <h2>Flat shipping rates</h2>
+            <p>Simple shipping prices for Basel Carz orders.</p>
+          </div>
+
+          <div class="shipping">
+            <article class="card">
+              <h3>USA Shipping</h3>
+              <div class="price">$30</div>
+              <p>Flat rate shipping within the United States.</p>
+            </article>
+            <article class="card">
+              <h3>International Shipping</h3>
+              <div class="price">$100</div>
+              <p>Flat rate shipping for international orders.</p>
+            </article>
+          </div>
+          <p class="note">Shipping details should be confirmed before purchase.</p>
+        </div>
+      </section>
+
+      <section class="section" id="ordering">
+        <div class="section-title">
+          <h2>How ordering works</h2>
+          <p>No direct checkout is active on this website right now. Orders are confirmed first, then paid through PayPal.</p>
+        </div>
+
+        <div class="grid steps">
+          <article class="card step">
+            <h3>Ask about availability</h3>
+            <p>Contact Basel Carz with the model you want and any shipping questions.</p>
+          </article>
+          <article class="card step">
+            <h3>Choose your model</h3>
+            <p>Review item photos, condition, price, and shipping before payment.</p>
+          </article>
+          <article class="card step">
+            <h3>Pay with PayPal</h3>
+            <p>Complete payment after the order details are confirmed.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 Basel Carz</span>
+      <span>PayPal accepted</span>
+    </footer>
+  </div>
+</body>
+</html>
