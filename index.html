@@ -4,21 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Basel Carz | Diecast Model Cars</title>
-  <meta name="description" content="Basel Carz collectible diecast and resin model cars with PayPal payment options.">
+  <meta name="description" content="Basel Carz collectible diecast and resin model cars with cart, PayPal-ready checkout, and flat shipping.">
   <style>
     :root {
       --bg: #ffffff;
-      --text: #121212;
-      --muted: #626262;
-      --line: #dedede;
-      --soft: #f6f6f6;
+      --text: #111111;
+      --muted: #666666;
+      --line: #dddddd;
+      --soft: #f7f7f7;
       --accent: #111111;
       --accent-hover: #333333;
+      --danger: #9f1d1d;
+      --success: #0f6b3d;
       --radius: 8px;
-      --max: 1180px;
+      --max: 1220px;
     }
 
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -28,6 +32,8 @@
       line-height: 1.5;
     }
 
+    button, input, select { font: inherit; }
+
     a { color: inherit; }
 
     .topbar {
@@ -35,17 +41,17 @@
       background: #ffffff;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
     }
 
     .nav {
       width: min(100% - 32px, var(--max));
       margin: 0 auto;
-      min-height: 76px;
+      min-height: 74px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
     }
 
     .brand {
@@ -67,136 +73,80 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 12px;
       font-size: 14px;
     }
 
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
+      padding: 10px 6px;
     }
 
     .nav-links a:hover { color: var(--text); }
 
+    .cart-link {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--text) !important;
+      padding: 9px 12px !important;
+    }
+
     .section {
       width: min(100% - 32px, var(--max));
       margin: 0 auto;
-      padding: 56px 0;
+      padding: 34px 0 56px;
     }
 
-    .inventory-section {
-      padding-top: 32px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-      gap: 40px;
-      align-items: center;
-      min-height: 390px;
-      border-bottom: 1px solid var(--line);
+    .section-title {
+      max-width: 820px;
+      margin-bottom: 24px;
     }
 
     .eyebrow {
-      margin: 0 0 12px;
+      margin: 0 0 10px;
       color: var(--muted);
-      font-size: 14px;
-      text-transform: uppercase;
+      font-size: 13px;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1, h2, h3, p { margin-top: 0; }
 
     h1 {
-      max-width: 760px;
-      margin-bottom: 18px;
-      font-size: clamp(40px, 7vw, 72px);
-      line-height: 0.97;
+      margin-bottom: 14px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
       letter-spacing: 0;
     }
 
     .lead {
-      max-width: 680px;
+      margin-bottom: 0;
       color: var(--muted);
-      font-size: 20px;
+      font-size: 18px;
     }
 
-    .actions {
+    .summary-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
+      gap: 10px;
+      margin: 22px 0 0;
     }
 
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 0 20px;
-      border: 1px solid var(--accent);
-      border-radius: var(--radius);
-      background: var(--accent);
-      color: #ffffff;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .button:hover { background: var(--accent-hover); }
-
-    .button.secondary {
-      background: #ffffff;
-      color: var(--text);
-    }
-
-    .button.secondary:hover { background: var(--soft); }
-
-    .plain-panel {
+    .pill {
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 26px;
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--muted);
+      font-size: 13px;
       background: #ffffff;
     }
 
-    .plain-panel h2 {
-      margin-bottom: 12px;
-      font-size: 22px;
-    }
-
-    .plain-panel p { color: var(--muted); }
-
-    .quick-list {
+    .store-layout {
       display: grid;
-      gap: 12px;
-      margin: 20px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .quick-list li {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 12px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .quick-list span { color: var(--muted); }
-
-    .section-title {
-      max-width: 820px;
-      margin-bottom: 28px;
-    }
-
-    .section-title h2 {
-      margin-bottom: 10px;
-      font-size: 34px;
-      line-height: 1.1;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      font-size: 17px;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 26px;
+      align-items: start;
     }
 
     .toolbar {
@@ -205,217 +155,297 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 14px;
-      margin: 0 0 24px;
-    }
-
-    .summary-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 0;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 12px;
-      color: var(--muted);
-      font-size: 14px;
-      background: #ffffff;
+      margin: 0 0 22px;
+      padding-top: 2px;
     }
 
     .search-box {
-      width: min(100%, 360px);
-      min-height: 42px;
+      width: min(100%, 440px);
+      min-height: 44px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 0 12px;
-      color: var(--text);
-      font: inherit;
+      padding: 0 14px;
       background: #ffffff;
+      color: var(--text);
+    }
+
+    .result-count {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
     }
 
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
       scroll-margin-top: 96px;
     }
 
-    .product-card,
-    .card {
+    .product-card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #ffffff;
-    }
-
-    .product-card {
       overflow: hidden;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
-      min-height: 100%;
+      min-width: 0;
     }
 
     .product-card.is-hidden { display: none; }
 
-    .product-media {
+    .product-image-wrap {
+      width: 100%;
       aspect-ratio: 1 / 1;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
       display: grid;
       place-items: center;
-      border-bottom: 1px solid var(--line);
-      background: #ffffff;
+      overflow: hidden;
     }
 
-    .product-media img {
+    .product-image-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
     }
 
     .product-body {
-      padding: 16px;
+      padding: 15px;
       display: flex;
-      flex: 1;
       flex-direction: column;
-    }
-
-    .product-id {
-      margin-bottom: 8px;
-      color: var(--muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .product-card h3 {
-      margin-bottom: 14px;
-      font-size: 16px;
-      line-height: 1.28;
+      gap: 10px;
+      flex: 1;
     }
 
     .product-meta {
       display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .product-card h3 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.28;
+    }
+
+    .price-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
       margin-top: auto;
-      padding-top: 12px;
+    }
+
+    .original-price {
+      color: var(--muted);
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .sale-price {
+      color: var(--success);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .discount-note {
+      margin: -4px 0 2px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button:hover { background: var(--accent-hover); }
+
+    .button:disabled {
+      border-color: #bdbdbd;
+      background: #d8d8d8;
+      color: #666666;
+      cursor: not-allowed;
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .button.secondary:hover { background: var(--soft); }
+
+    .button.added {
+      background: #ffffff;
+      color: var(--success);
+      border-color: var(--success);
+    }
+
+    .cart-panel {
+      position: sticky;
+      top: 96px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: #ffffff;
+    }
+
+    .cart-panel h2 {
+      margin-bottom: 6px;
+      font-size: 22px;
+    }
+
+    .cart-note, .empty-cart, .paypal-message {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: start;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-item img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--soft);
+    }
+
+    .cart-item strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .cart-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .remove-item {
+      border: 0;
+      background: transparent;
+      color: var(--danger);
+      cursor: pointer;
+      font-weight: 700;
+      padding: 2px 0 0 6px;
+    }
+
+    .shipping-field {
+      display: grid;
+      gap: 7px;
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .shipping-field select {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0 10px;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .totals {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 16px;
+      padding: 14px 0 0;
       border-top: 1px solid var(--line);
     }
 
-    .product-meta strong { font-size: 20px; }
-
-    .product-meta span {
+    .totals div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
       color: var(--muted);
-      font-size: 13px;
-      white-space: nowrap;
+      font-size: 14px;
     }
 
-    .product-note {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 13px;
+    .totals .total-row {
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
     }
 
-    .empty-state {
+    .paypal-message {
+      min-height: 20px;
+      margin: 12px 0 0;
+    }
+
+    .paypal-message.error { color: var(--danger); }
+    .paypal-message.ready { color: var(--success); }
+
+    .no-results {
       display: none;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 18px;
       color: var(--muted);
       background: #ffffff;
     }
 
-    .empty-state.is-visible { display: block; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card { padding: 22px; }
-
-    .card h3 {
-      margin-bottom: 8px;
-      font-size: 20px;
-    }
-
-    .card p {
-      margin-bottom: 0;
-      color: var(--muted);
-    }
-
-    .steps { counter-reset: step; }
-
-    .step {
-      position: relative;
-      padding-left: 48px;
-    }
-
-    .step::before {
-      counter-increment: step;
-      content: counter(step);
-      position: absolute;
-      left: 16px;
-      top: 22px;
-      width: 30px;
-      height: 30px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .band {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--soft);
-    }
-
-    .shipping {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .price {
-      margin: 14px 0 6px;
-      font-size: 42px;
-      line-height: 1;
-      font-weight: 800;
-    }
-
-    .note {
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .no-results.is-visible { display: block; }
 
     .footer {
-      width: min(100% - 32px, var(--max));
-      margin: 0 auto;
-      padding: 28px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding: 26px 0;
       color: var(--muted);
       font-size: 14px;
+    }
+
+    .footer-inner {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     @media (max-width: 1040px) {
-      .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .store-layout { grid-template-columns: 1fr; }
+      .cart-panel { position: static; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 820px) {
+    @media (max-width: 680px) {
       .nav {
         min-height: auto;
-        padding: 18px 0;
+        padding: 14px 0;
         align-items: flex-start;
         flex-direction: column;
       }
@@ -423,54 +453,15 @@
       .nav-links {
         width: 100%;
         justify-content: space-between;
-        gap: 10px;
       }
 
-      .hero,
-      .grid,
-      .shipping {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 44px;
-      }
-
-      h1 { font-size: 48px; }
-
-      .section { padding: 44px 0; }
-
-      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-      .footer {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .nav-links {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-      }
-
-      h1 { font-size: 40px; }
-
-      .lead { font-size: 18px; }
-
-      .button { width: 100%; }
-
-      .quick-list li {
-        flex-direction: column;
-        gap: 2px;
-      }
-
+      .section { padding-top: 26px; }
+      h1 { font-size: 36px; }
+      .lead { font-size: 16px; }
       .toolbar { align-items: stretch; }
-
       .search-box { width: 100%; }
-
       .product-grid { grid-template-columns: 1fr; }
+      .cart-item { grid-template-columns: 48px minmax(0, 1fr) auto; }
     }
   </style>
 </head>
@@ -479,826 +470,1903 @@
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="Basel Carz home">
         <strong>Basel Carz</strong>
-        <span>Collectible diecast model cars</span>
+        <span>Collectible diecast and resin model cars</span>
       </a>
       <div class="nav-links">
         <a href="#product-grid">Inventory</a>
-        <a href="#shipping">Shipping</a>
-        <a href="#ordering">Ordering</a>
+        <a class="cart-link" href="#cart-panel">Cart <span id="nav-cart-count">0</span></a>
       </div>
     </nav>
   </header>
 
-  <main id="top">
-    <section class="section inventory-section" id="inventory">
-      <div class="section-title">
-        <p class="eyebrow">Basel Carz</p>
-        <h1>Current Inventory</h1>
-        <p>Browse 48 collectible diecast and resin model cars. Each listing includes the product photo, title, price, and product ID. Final availability is confirmed before PayPal payment.</p>
+  <main id="top" class="section">
+    <section class="section-title" aria-labelledby="inventory-heading">
+      <p class="eyebrow">Current Inventory</p>
+      <h1 id="inventory-heading">Basel Carz Inventory</h1>
+      <p class="lead">Browse 85 collectible model cars. Every item shows the original price and the current 20% discount price. Shipping is flat: $30 in the USA or $100 international.</p>
+      <div class="summary-row" aria-label="Store summary">
+        <span class="pill">85 products</span>
+        <span class="pill">20% off every item</span>
+        <span class="pill">USD pricing</span>
+        <span class="pill">PayPal-ready checkout</span>
       </div>
+    </section>
 
-      <div class="toolbar">
-        <div class="summary-row" aria-label="Inventory summary">
-          <span class="pill"><span id="visible-count">48</span> of 48 listings</span>
-          <span class="pill">USD pricing</span>
-          <span class="pill">PayPal after confirmation</span>
+    <div class="store-layout">
+      <section aria-label="Products">
+        <div class="toolbar">
+          <input class="search-box" id="inventory-search" type="search" placeholder="Search by model, brand, or item number" aria-label="Search inventory">
+          <p class="result-count" id="result-count">Showing 85 products</p>
         </div>
-        <input class="search-box" id="inventory-search" type="search" placeholder="Search by model or product ID" aria-label="Search inventory">
-      </div>
+        <div class="product-grid" id="product-grid">
 
-      <div class="empty-state" id="empty-state">No matching models found.</div>
-      <div class="product-grid" id="product-grid">
-
-          <article class="product-card" data-title="cult models 1:18 scale 1976 cadillac seville silver resin car model defected" data-id="298484534704">
-            <div class="product-media">
-              <img src="assets/products/298484534704.jpg" alt="Cult Models 1:18 Scale 1976 Cadillac Seville Silver resin car model Defected" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298484534704</p>
-              <h3>Cult Models 1:18 Scale 1976 Cadillac Seville Silver resin car model Defected</h3>
-              <div class="product-meta">
-                <strong>$275.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="amc 1/18 cadillac eldorado biarritz 1980 green two-door luxury sedan model" data-id="298451832092">
-            <div class="product-media">
-              <img src="assets/products/298451832092.jpg" alt="AMC 1/18 Cadillac Eldorado Biarritz 1980 Green Two-Door Luxury Sedan Model" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298451832092</p>
-              <h3>AMC 1/18 Cadillac Eldorado Biarritz 1980 Green Two-Door Luxury Sedan Model</h3>
-              <div class="product-meta">
-                <strong>$300.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="aston martin one-77 1:18 tecnomodel resin bronze pearl v12 supercar" data-id="298446787040">
-            <div class="product-media">
+          <article class="product-card" data-id="298446787040" data-title="aston martin one-77 1:18 tecnomodel resin bronze pearl v12 supercar">
+            <div class="product-image-wrap">
               <img src="assets/products/298446787040.jpg" alt="Aston Martin One-77 1:18 Tecnomodel Resin Bronze Pearl V12 Supercar" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298446787040</p>
-              <h3>Aston Martin One-77 1:18 Tecnomodel Resin Bronze Pearl V12 Supercar</h3>
               <div class="product-meta">
-                <strong>$250.00</strong>
+                <span>Item #298446787040</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>Aston Martin One-77 1:18 Tecnomodel Resin Bronze Pearl V12 Supercar</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$250.00</span>
+                <span class="sale-price">$200.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $50.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298446787040">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="dodge charger srt hellcat redeye white black 2021 gt spirit 1/18  no box" data-id="298382740287">
-            <div class="product-media">
-              <img src="assets/products/298382740287.jpg" alt="Dodge Charger SRT Hellcat Redeye White Black 2021 GT Spirit 1/18  No Box" loading="lazy">
+          <article class="product-card" data-id="298484534704" data-title="cult models 1:18 scale 1976 cadillac seville silver resin car model defected">
+            <div class="product-image-wrap">
+              <img src="assets/products/298484534704.jpg" alt="Cult Models 1:18 Scale 1976 Cadillac Seville Silver resin car model Defected" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298382740287</p>
-              <h3>Dodge Charger SRT Hellcat Redeye White Black 2021 GT Spirit 1/18  No Box</h3>
               <div class="product-meta">
-                <strong>$210.00</strong>
+                <span>Item #298484534704</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>Cult Models 1:18 Scale 1976 Cadillac Seville Silver resin car model Defected</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$275.00</span>
+                <span class="sale-price">$220.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $55.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298484534704">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="cult models 1:18 scale 1976 cadillac seville resin car model--light blue" data-id="298047727233">
-            <div class="product-media">
+          <article class="product-card" data-id="298451832092" data-title="amc 1/18 cadillac eldorado biarritz 1980 green two-door luxury sedan model">
+            <div class="product-image-wrap">
+              <img src="assets/products/298451832092.jpg" alt="AMC 1/18 Cadillac Eldorado Biarritz 1980 Green Two-Door Luxury Sedan Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298451832092</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>AMC 1/18 Cadillac Eldorado Biarritz 1980 Green Two-Door Luxury Sedan Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$300.00</span>
+                <span class="sale-price">$240.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $60.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298451832092">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298047727233" data-title="cult models 1:18 scale 1976 cadillac seville resin car model--light blue">
+            <div class="product-image-wrap">
               <img src="assets/products/298047727233.jpg" alt="Cult Models 1:18 Scale 1976 Cadillac Seville Resin Car Model--Light Blue" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298047727233</p>
-              <h3>Cult Models 1:18 Scale 1976 Cadillac Seville Resin Car Model--Light Blue</h3>
               <div class="product-meta">
-                <strong>$300.00</strong>
+                <span>Item #298047727233</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>Cult Models 1:18 Scale 1976 Cadillac Seville Resin Car Model--Light Blue</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$300.00</span>
+                <span class="sale-price">$240.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $60.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298047727233">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1:18 dcm bmw m3 gtr e46 2001 need for speed metal blue diecast (defected)" data-id="298128424225">
-            <div class="product-media">
+          <article class="product-card" data-id="298128424225" data-title="1:18 dcm bmw m3 gtr e46 2001 need for speed metal blue diecast (defected)">
+            <div class="product-image-wrap">
               <img src="assets/products/298128424225.jpg" alt="1:18 DCM BMW M3 GTR E46 2001 Need For Speed Metal Blue Diecast (defected)" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298128424225</p>
+              <div class="product-meta">
+                <span>Item #298128424225</span>
+                <span>1 remaining</span>
+              </div>
               <h3>1:18 DCM BMW M3 GTR E46 2001 Need For Speed Metal Blue Diecast (defected)</h3>
-              <div class="product-meta">
-                <strong>$385.00</strong>
-                <span>1 remaining</span>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$385.00</span>
+                <span class="sale-price">$308.00</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <p class="discount-note">20% off. You save $77.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298128424225">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1/18 ivy models lexus ls 430 in gloss white  99 pieces leather base" data-id="298446811288">
-            <div class="product-media">
-              <img src="assets/products/298446811288.jpg" alt="1/18 Ivy Models Lexus LS 430 in Gloss White  99 pieces Leather base" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298446811288</p>
-              <h3>1/18 Ivy Models Lexus LS 430 in Gloss White  99 pieces Leather base</h3>
-              <div class="product-meta">
-                <strong>$200.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 diecast masters 2019 ford mustang gt 5.0 coupe lhd matt black" data-id="298026979383">
-            <div class="product-media">
-              <img src="assets/products/298026979383.jpg" alt="1:18 Diecast Masters 2019 Ford MUSTANG Gt 5.0 Coupe LHD Matt Black" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298026979383</p>
-              <h3>1:18 Diecast Masters 2019 Ford MUSTANG Gt 5.0 Coupe LHD Matt Black</h3>
-              <div class="product-meta">
-                <strong>$180.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="juc 1/18 lamborghini aventador lb aventador blue limited edition used" data-id="297910222518">
-            <div class="product-media">
-              <img src="assets/products/297910222518.jpg" alt="JUC 1/18 Lamborghini Aventador LB AVENTADOR Blue Limited Edition Used" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297910222518</p>
-              <h3>JUC 1/18 Lamborghini Aventador LB AVENTADOR Blue Limited Edition Used</h3>
-              <div class="product-meta">
-                <strong>$345.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="ignition model ig3270 1/18 nissan skyline 2000 gt-x (gc110) purple jdm" data-id="298484541240">
-            <div class="product-media">
-              <img src="assets/products/298484541240.jpg" alt="Ignition Model IG3270 1/18 Nissan Skyline 2000 GT-X (GC110) Purple JDM" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298484541240</p>
-              <h3>Ignition Model IG3270 1/18 Nissan Skyline 2000 GT-X (GC110) Purple JDM</h3>
-              <div class="product-meta">
-                <strong>$280.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="gl model lamborghini aventador roadster svj spearmint green  1:18 with display" data-id="298457839834">
-            <div class="product-media">
-              <img src="assets/products/298457839834.jpg" alt="GL Model Lamborghini Aventador Roadster SVJ Spearmint Green  1:18 WITH DISPLAY" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298457839834</p>
-              <h3>GL Model Lamborghini Aventador Roadster SVJ Spearmint Green  1:18 WITH DISPLAY</h3>
-              <div class="product-meta">
-                <strong>$245.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1/18 gl models rolls royce cullinan in 39 pcs" data-id="298402524149">
-            <div class="product-media">
-              <img src="assets/products/298402524149.jpg" alt="1/18 GL Models Rolls Royce Cullinan in 39 pcs" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298402524149</p>
-              <h3>1/18 GL Models Rolls Royce Cullinan in 39 pcs</h3>
-              <div class="product-meta">
-                <strong>$260.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="mcg 1/18 - chevrolet caprice - 1987 - 18267s" data-id="297164464523">
-            <div class="product-media">
+          <article class="product-card" data-id="297164464523" data-title="mcg 1/18 - chevrolet caprice - 1987 - 18267s">
+            <div class="product-image-wrap">
               <img src="assets/products/297164464523.jpg" alt="MCG 1/18 - CHEVROLET CAPRICE - 1987 - 18267S" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 297164464523</p>
+              <div class="product-meta">
+                <span>Item #297164464523</span>
+                <span>1 remaining</span>
+              </div>
               <h3>MCG 1/18 - CHEVROLET CAPRICE - 1987 - 18267S</h3>
-              <div class="product-meta">
-                <strong>$190.00</strong>
-                <span>1 remaining</span>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$190.00</span>
+                <span class="sale-price">$152.00</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <p class="discount-note">20% off. You save $38.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297164464523">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="runner 1:18 lexus rc-f brown lv livery resin model limited edition 10 of 20" data-id="298405740797">
-            <div class="product-media">
-              <img src="assets/products/298405740797.jpg" alt="Runner 1:18 Lexus RC-F Brown LV Livery Resin Model Limited Edition 10 of 20" loading="lazy">
+          <article class="product-card" data-id="298402524149" data-title="1/18 gl models rolls royce cullinan in 39 pcs">
+            <div class="product-image-wrap">
+              <img src="assets/products/298402524149.jpg" alt="1/18 GL Models Rolls Royce Cullinan in 39 pcs" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298405740797</p>
-              <h3>Runner 1:18 Lexus RC-F Brown LV Livery Resin Model Limited Edition 10 of 20</h3>
               <div class="product-meta">
-                <strong>$270.00</strong>
+                <span>Item #298402524149</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>1/18 GL Models Rolls Royce Cullinan in 39 pcs</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$260.00</span>
+                <span class="sale-price">$208.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $52.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298402524149">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="packard rider 1953 dark red cavalier bos 1/18 bos model resin" data-id="298293186747">
-            <div class="product-media">
-              <img src="assets/products/298293186747.jpg" alt="Packard Rider 1953 Dark Red Cavalier BoS 1/18 BOS Model Resin" loading="lazy">
+          <article class="product-card" data-id="298026979383" data-title="1:18 diecast masters 2019 ford mustang gt 5.0 coupe lhd matt black">
+            <div class="product-image-wrap">
+              <img src="assets/products/298026979383.jpg" alt="1:18 Diecast Masters 2019 Ford MUSTANG Gt 5.0 Coupe LHD Matt Black" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298293186747</p>
-              <h3>Packard Rider 1953 Dark Red Cavalier BoS 1/18 BOS Model Resin</h3>
               <div class="product-meta">
-                <strong>$245.00</strong>
+                <span>Item #298026979383</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>1:18 Diecast Masters 2019 Ford MUSTANG Gt 5.0 Coupe LHD Matt Black</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$180.00</span>
+                <span class="sale-price">$144.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $36.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298026979383">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1/18 ai model porsche 911 gt3 rs 992 persian metallic blue limited" data-id="297882213973">
-            <div class="product-media">
-              <img src="assets/products/297882213973.jpg" alt="1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Blue Limited" loading="lazy">
+          <article class="product-card" data-id="297910222518" data-title="juc 1/18 lamborghini aventador lb aventador blue limited edition used">
+            <div class="product-image-wrap">
+              <img src="assets/products/297910222518.jpg" alt="JUC 1/18 Lamborghini Aventador LB AVENTADOR Blue Limited Edition Used" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 297882213973</p>
-              <h3>1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Blue Limited</h3>
               <div class="product-meta">
-                <strong>$265.00</strong>
+                <span>Item #297910222518</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>JUC 1/18 Lamborghini Aventador LB AVENTADOR Blue Limited Edition Used</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$345.00</span>
+                <span class="sale-price">$276.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $69.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297910222518">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1:18 biante ford el gt falcon in  blue" data-id="298364887156">
-            <div class="product-media">
-              <img src="assets/products/298364887156.jpg" alt="1:18 Biante Ford EL GT Falcon in  Blue" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298364887156</p>
-              <h3>1:18 Biante Ford EL GT Falcon in  Blue</h3>
-              <div class="product-meta">
-                <strong>$180.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1/18 scale 2020 toyota trd camry sportivo diecast supersonic custmized" data-id="298269771507">
-            <div class="product-media">
+          <article class="product-card" data-id="298269771507" data-title="1/18 scale 2020 toyota trd camry sportivo diecast supersonic custmized">
+            <div class="product-image-wrap">
               <img src="assets/products/298269771507.jpg" alt="1/18 Scale 2020 Toyota TRD Camry Sportivo Diecast Supersonic Custmized" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298269771507</p>
+              <div class="product-meta">
+                <span>Item #298269771507</span>
+                <span>1 remaining</span>
+              </div>
               <h3>1/18 Scale 2020 Toyota TRD Camry Sportivo Diecast Supersonic Custmized</h3>
-              <div class="product-meta">
-                <strong>$235.00</strong>
-                <span>1 remaining</span>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$235.00</span>
+                <span class="sale-price">$188.00</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <p class="discount-note">20% off. You save $47.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298269771507">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1/18 gt-spirit porsche 911 turbo (997) liberty walk lb exclusive edition-kj011" data-id="298203681220">
-            <div class="product-media">
-              <img src="assets/products/298203681220.jpg" alt="1/18 GT-Spirit PORSCHE 911 TURBO (997) LIBERTY WALK LB Exclusive Edition-KJ011" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298203681220</p>
-              <h3>1/18 GT-Spirit PORSCHE 911 TURBO (997) LIBERTY WALK LB Exclusive Edition-KJ011</h3>
-              <div class="product-meta">
-                <strong>$230.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="batman v superman batmobile sdcc morbius exclusive" data-id="298482701172">
-            <div class="product-media">
-              <img src="assets/products/298482701172.jpg" alt="Batman V Superman Batmobile SDCC Morbius Exclusive" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298482701172</p>
-              <h3>Batman V Superman Batmobile SDCC Morbius Exclusive</h3>
-              <div class="product-meta">
-                <strong>$150.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1977 lincoln continental mark v gold sealed model 1:18 by mcg model car group" data-id="298364891330">
-            <div class="product-media">
-              <img src="assets/products/298364891330.jpg" alt="1977 LINCOLN CONTINENTAL MARK V GOLD SEALED MODEL 1:18 by MCG MODEL CAR GROUP" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298364891330</p>
-              <h3>1977 LINCOLN CONTINENTAL MARK V GOLD SEALED MODEL 1:18 by MCG MODEL CAR GROUP</h3>
-              <div class="product-meta">
-                <strong>$230.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="tuned bmw 325i e30 black color norev 1/18 scale diecast - (hand made) customized" data-id="296711990844">
-            <div class="product-media">
-              <img src="assets/products/296711990844.jpg" alt="Tuned BMW 325i E30 Black Color Norev 1/18 Scale Diecast - (Hand Made) Customized" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 296711990844</p>
-              <h3>Tuned BMW 325i E30 Black Color Norev 1/18 Scale Diecast - (Hand Made) Customized</h3>
-              <div class="product-meta">
-                <strong>$240.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 ai model porsche 911 gt3 rs 992 diamond black limited edition" data-id="298382740039">
-            <div class="product-media">
-              <img src="assets/products/298382740039.jpg" alt="1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298382740039</p>
-              <h3>1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition</h3>
-              <div class="product-meta">
-                <strong>$190.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="gt spirit  1/18 porsche 911 type 964 rwb rauh-welt hoonigan gt732" data-id="297565581758">
-            <div class="product-media">
-              <img src="assets/products/297565581758.jpg" alt="GT Spirit  1/18 Porsche 911 TYPE 964 RWB Rauh-Welt Hoonigan GT732" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297565581758</p>
-              <h3>GT Spirit  1/18 Porsche 911 TYPE 964 RWB Rauh-Welt Hoonigan GT732</h3>
-              <div class="product-meta">
-                <strong>$235.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1/18 ignition model subaru impreza wrx (cba-vab) sti blue metallic ig3609" data-id="297865004922">
-            <div class="product-media">
-              <img src="assets/products/297865004922.jpg" alt="1/18 Ignition Model Subaru Impreza WRX (CBA-VAB) STI Blue Metallic IG3609" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297865004922</p>
-              <h3>1/18 Ignition Model Subaru Impreza WRX (CBA-VAB) STI Blue Metallic IG3609</h3>
-              <div class="product-meta">
-                <strong>$440.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="tecnomodel 1:18 mclaren elva 2022 matte red supercar model defected" data-id="298402524417">
-            <div class="product-media">
-              <img src="assets/products/298402524417.jpg" alt="Tecnomodel 1:18 McLaren Elva 2022 matte red supercar model Defected" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298402524417</p>
-              <h3>Tecnomodel 1:18 McLaren Elva 2022 matte red supercar model Defected</h3>
-              <div class="product-meta">
-                <strong>$155.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 lcd lexus lx600 alloy metal car model collection ornament" data-id="298326559746">
-            <div class="product-media">
-              <img src="assets/products/298326559746.jpg" alt="1:18 LCD Lexus LX600 Alloy Metal Car Model Collection Ornament" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298326559746</p>
-              <h3>1:18 LCD Lexus LX600 Alloy Metal Car Model Collection Ornament</h3>
-              <div class="product-meta">
-                <strong>$220.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="mcg 1/18 - bmw serie 5 touring (e34) - 1991 - customized hand made" data-id="297515949502">
-            <div class="product-media">
-              <img src="assets/products/297515949502.jpg" alt="MCG 1/18 - BMW SERIE 5 TOURING (E34) - 1991 - Customized Hand Made" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297515949502</p>
-              <h3>MCG 1/18 - BMW SERIE 5 TOURING (E34) - 1991 - Customized Hand Made</h3>
-              <div class="product-meta">
-                <strong>$250.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1/18 rob3artdesign my collection  vw beetle volkswagen rwb kit red coca cola" data-id="298265571682">
-            <div class="product-media">
-              <img src="assets/products/298265571682.jpg" alt="1/18 Rob3artdesign My collection  VW Beetle Volkswagen RWB Kit Red Coca Cola" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298265571682</p>
-              <h3>1/18 Rob3artdesign My collection  VW Beetle Volkswagen RWB Kit Red Coca Cola</h3>
-              <div class="product-meta">
-                <strong>$245.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1/18 authentic collectable ford mustang gt r-spec oxford white  ltd ed of 204" data-id="297577572971">
-            <div class="product-media">
-              <img src="assets/products/297577572971.jpg" alt="1/18 AUTHENTIC COLLECTABLE Ford Mustang GT R-SPEC OXFORD WHITE  LTD ED OF 204" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297577572971</p>
-              <h3>1/18 AUTHENTIC COLLECTABLE Ford Mustang GT R-SPEC OXFORD WHITE  LTD ED OF 204</h3>
-              <div class="product-meta">
-                <strong>$200.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="triumph tr2 1954 macau grand prix winner – 1:18 scale eddie carvalho #5" data-id="298247582673">
-            <div class="product-media">
-              <img src="assets/products/298247582673.jpg" alt="Triumph TR2 1954 Macau Grand Prix Winner – 1:18 Scale Eddie Carvalho #5" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298247582673</p>
-              <h3>Triumph TR2 1954 Macau Grand Prix Winner – 1:18 Scale Eddie Carvalho #5</h3>
-              <div class="product-meta">
-                <strong>$220.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="modellino auto statico glm bmw 2 serie m235i darwinpro mtc sails widebody 1/18" data-id="298247583172">
-            <div class="product-media">
-              <img src="assets/products/298247583172.jpg" alt="MODELLINO AUTO STATICO GLM BMW 2 SERIE M235I DARWINPRO MTC SAILS WIDEBODY 1/18" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298247583172</p>
-              <h3>MODELLINO AUTO STATICO GLM BMW 2 SERIE M235I DARWINPRO MTC SAILS WIDEBODY 1/18</h3>
-              <div class="product-meta">
-                <strong>$250.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="gt spirit 2008 mercedes benz c-class c63 amg silver le 999pcs 1:18*custmized" data-id="298108941827">
-            <div class="product-media">
-              <img src="assets/products/298108941827.jpg" alt="GT Spirit 2008 MERCEDES BENZ C-CLASS C63 AMG SILVER LE 999pcs 1:18*Custmized" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298108941827</p>
-              <h3>GT Spirit 2008 MERCEDES BENZ C-CLASS C63 AMG SILVER LE 999pcs 1:18*Custmized</h3>
-              <div class="product-meta">
-                <strong>$435.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="otto models 1/18 scale resin ot481 - toyota sr5 hilux - black" data-id="298247582836">
-            <div class="product-media">
-              <img src="assets/products/298247582836.jpg" alt="Otto Models 1/18 Scale Resin OT481 - Toyota SR5 Hilux - Black" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298247582836</p>
-              <h3>Otto Models 1/18 Scale Resin OT481 - Toyota SR5 Hilux - Black</h3>
-              <div class="product-meta">
-                <strong>$235.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="hot wheels dropstars nissan titan 1/18 white custom lifted truck uav diecast" data-id="298341527295">
-            <div class="product-media">
-              <img src="assets/products/298341527295.jpg" alt="Hot Wheels Dropstars Nissan Titan 1/18 White Custom Lifted Truck UAV Diecast" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298341527295</p>
-              <h3>Hot Wheels Dropstars Nissan Titan 1/18 White Custom Lifted Truck UAV Diecast</h3>
-              <div class="product-meta">
-                <strong>$300.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 maserati gran turismo mc luminous green resin model" data-id="298083586234">
-            <div class="product-media">
-              <img src="assets/products/298083586234.jpg" alt="1:18 Maserati Gran Turismo MC Luminous green Resin Model" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298083586234</p>
-              <h3>1:18 Maserati Gran Turismo MC Luminous green Resin Model</h3>
-              <div class="product-meta">
-                <strong>$245.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 bmw 325i e36 dtm 1993 jagermeister #9 diecast model rare" data-id="298320997295">
-            <div class="product-media">
-              <img src="assets/products/298320997295.jpg" alt="1:18 BMW 325i E36 DTM 1993 Jagermeister #9 Diecast Model Rare" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298320997295</p>
-              <h3>1:18 BMW 325i E36 DTM 1993 Jagermeister #9 Diecast Model Rare</h3>
-              <div class="product-meta">
-                <strong>$275.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="*super rare* autoart 1/18 mercedes benz cl-klasse cl class black c216" data-id="298263710319">
-            <div class="product-media">
-              <img src="assets/products/298263710319.jpg" alt="*SUPER RARE* Autoart 1/18 Mercedes Benz CL-Klasse CL Class Black C216" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298263710319</p>
-              <h3>*SUPER RARE* Autoart 1/18 Mercedes Benz CL-Klasse CL Class Black C216</h3>
-              <div class="product-meta">
-                <strong>$255.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 dongfeng  warriors 917 jiaolong movie memorial armored car alloy car model" data-id="298272978760">
-            <div class="product-media">
-              <img src="assets/products/298272978760.jpg" alt="1:18 Dongfeng  Warriors 917 Jiaolong Movie Memorial Armored Car Alloy Car Model" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298272978760</p>
-              <h3>1:18 Dongfeng  Warriors 917 Jiaolong Movie Memorial Armored Car Alloy Car Model</h3>
-              <div class="product-meta">
-                <strong>$285.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 2025 bmw x5 m white" data-id="298272974125">
-            <div class="product-media">
+          <article class="product-card" data-id="298272974125" data-title="1:18 2025 bmw x5 m white">
+            <div class="product-image-wrap">
               <img src="assets/products/298272974125.jpg" alt="1:18 2025 BMW X5 M White" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298272974125</p>
-              <h3>1:18 2025 BMW X5 M White</h3>
               <div class="product-meta">
-                <strong>$85.00</strong>
+                <span>Item #298272974125</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>1:18 2025 BMW X5 M White</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$85.00</span>
+                <span class="sale-price">$68.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $17.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298272974125">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1/18 vip models porsche 911 carrera gts red off road defected" data-id="297826477714">
-            <div class="product-media">
+          <article class="product-card" data-id="297882213973" data-title="1/18 ai model porsche 911 gt3 rs 992 persian metallic blue limited">
+            <div class="product-image-wrap">
+              <img src="assets/products/297882213973.jpg" alt="1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Blue Limited" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297882213973</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Blue Limited</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$265.00</span>
+                <span class="sale-price">$212.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $53.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297882213973">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298293186747" data-title="packard rider 1953 dark red cavalier bos 1/18 bos model resin">
+            <div class="product-image-wrap">
+              <img src="assets/products/298293186747.jpg" alt="Packard Rider 1953 Dark Red Cavalier BoS 1/18 BOS Model Resin" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298293186747</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Packard Rider 1953 Dark Red Cavalier BoS 1/18 BOS Model Resin</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$245.00</span>
+                <span class="sale-price">$196.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $49.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298293186747">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298247582673" data-title="triumph tr2 1954 macau grand prix winner – 1:18 scale eddie carvalho #5">
+            <div class="product-image-wrap">
+              <img src="assets/products/298247582673.jpg" alt="Triumph TR2 1954 Macau Grand Prix Winner – 1:18 Scale Eddie Carvalho #5" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298247582673</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Triumph TR2 1954 Macau Grand Prix Winner – 1:18 Scale Eddie Carvalho #5</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$220.00</span>
+                <span class="sale-price">$176.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $44.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298247582673">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298405740797" data-title="runner 1:18 lexus rc-f brown lv livery resin model limited edition 10 of 20">
+            <div class="product-image-wrap">
+              <img src="assets/products/298405740797.jpg" alt="Runner 1:18 Lexus RC-F Brown LV Livery Resin Model Limited Edition 10 of 20" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298405740797</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Runner 1:18 Lexus RC-F Brown LV Livery Resin Model Limited Edition 10 of 20</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$270.00</span>
+                <span class="sale-price">$216.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $54.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298405740797">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298382740287" data-title="dodge charger srt hellcat redeye white black 2021 gt spirit 1/18  no box">
+            <div class="product-image-wrap">
+              <img src="assets/products/298382740287.jpg" alt="Dodge Charger SRT Hellcat Redeye White Black 2021 GT Spirit 1/18  No Box" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298382740287</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Dodge Charger SRT Hellcat Redeye White Black 2021 GT Spirit 1/18  No Box</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$210.00</span>
+                <span class="sale-price">$168.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $42.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298382740287">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298203681220" data-title="1/18 gt-spirit porsche 911 turbo (997) liberty walk lb exclusive edition-kj011">
+            <div class="product-image-wrap">
+              <img src="assets/products/298203681220.jpg" alt="1/18 GT-Spirit PORSCHE 911 TURBO (997) LIBERTY WALK LB Exclusive Edition-KJ011" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298203681220</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 GT-Spirit PORSCHE 911 TURBO (997) LIBERTY WALK LB Exclusive Edition-KJ011</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$230.00</span>
+                <span class="sale-price">$184.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $46.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298203681220">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297565581758" data-title="gt spirit  1/18 porsche 911 type 964 rwb rauh-welt hoonigan gt732">
+            <div class="product-image-wrap">
+              <img src="assets/products/297565581758.jpg" alt="GT Spirit  1/18 Porsche 911 TYPE 964 RWB Rauh-Welt Hoonigan GT732" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297565581758</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>GT Spirit  1/18 Porsche 911 TYPE 964 RWB Rauh-Welt Hoonigan GT732</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$235.00</span>
+                <span class="sale-price">$188.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $47.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297565581758">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297515949502" data-title="mcg 1/18 - bmw serie 5 touring (e34) - 1991 - customized hand made">
+            <div class="product-image-wrap">
+              <img src="assets/products/297515949502.jpg" alt="MCG 1/18 - BMW SERIE 5 TOURING (E34) - 1991 - Customized Hand Made" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297515949502</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>MCG 1/18 - BMW SERIE 5 TOURING (E34) - 1991 - Customized Hand Made</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$250.00</span>
+                <span class="sale-price">$200.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $50.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297515949502">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298446811288" data-title="1/18 ivy models lexus ls 430 in gloss white  99 pieces leather base">
+            <div class="product-image-wrap">
+              <img src="assets/products/298446811288.jpg" alt="1/18 Ivy Models Lexus LS 430 in Gloss White  99 pieces Leather base" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298446811288</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Ivy Models Lexus LS 430 in Gloss White  99 pieces Leather base</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$200.00</span>
+                <span class="sale-price">$160.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $40.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298446811288">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298341527295" data-title="hot wheels dropstars nissan titan 1/18 white custom lifted truck uav diecast">
+            <div class="product-image-wrap">
+              <img src="assets/products/298341527295.jpg" alt="Hot Wheels Dropstars Nissan Titan 1/18 White Custom Lifted Truck UAV Diecast" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298341527295</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Hot Wheels Dropstars Nissan Titan 1/18 White Custom Lifted Truck UAV Diecast</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$300.00</span>
+                <span class="sale-price">$240.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $60.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298341527295">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298457839834" data-title="gl model lamborghini aventador roadster svj spearmint green  1:18 with display">
+            <div class="product-image-wrap">
+              <img src="assets/products/298457839834.jpg" alt="GL Model Lamborghini Aventador Roadster SVJ Spearmint Green  1:18 WITH DISPLAY" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298457839834</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>GL Model Lamborghini Aventador Roadster SVJ Spearmint Green  1:18 WITH DISPLAY</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$245.00</span>
+                <span class="sale-price">$196.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $49.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298457839834">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298402524417" data-title="tecnomodel 1:18 mclaren elva 2022 matte red supercar model defected">
+            <div class="product-image-wrap">
+              <img src="assets/products/298402524417.jpg" alt="Tecnomodel 1:18 McLaren Elva 2022 matte red supercar model Defected" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298402524417</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Tecnomodel 1:18 McLaren Elva 2022 matte red supercar model Defected</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$155.00</span>
+                <span class="sale-price">$124.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $31.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298402524417">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297865004922" data-title="1/18 ignition model subaru impreza wrx (cba-vab) sti blue metallic ig3609">
+            <div class="product-image-wrap">
+              <img src="assets/products/297865004922.jpg" alt="1/18 Ignition Model Subaru Impreza WRX (CBA-VAB) STI Blue Metallic IG3609" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297865004922</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Ignition Model Subaru Impreza WRX (CBA-VAB) STI Blue Metallic IG3609</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$440.00</span>
+                <span class="sale-price">$352.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $88.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297865004922">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="296711990844" data-title="tuned bmw 325i e30 black color norev 1/18 scale diecast - (hand made) customized">
+            <div class="product-image-wrap">
+              <img src="assets/products/296711990844.jpg" alt="Tuned BMW 325i E30 Black Color Norev 1/18 Scale Diecast - (Hand Made) Customized" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #296711990844</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Tuned BMW 325i E30 Black Color Norev 1/18 Scale Diecast - (Hand Made) Customized</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$240.00</span>
+                <span class="sale-price">$192.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $48.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="296711990844">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298326559746" data-title="1:18 lcd lexus lx600 alloy metal car model collection ornament">
+            <div class="product-image-wrap">
+              <img src="assets/products/298326559746.jpg" alt="1:18 LCD Lexus LX600 Alloy Metal Car Model Collection Ornament" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298326559746</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 LCD Lexus LX600 Alloy Metal Car Model Collection Ornament</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$220.00</span>
+                <span class="sale-price">$176.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $44.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298326559746">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298265571682" data-title="1/18 rob3artdesign my collection  vw beetle volkswagen rwb kit red coca cola">
+            <div class="product-image-wrap">
+              <img src="assets/products/298265571682.jpg" alt="1/18 Rob3artdesign My collection  VW Beetle Volkswagen RWB Kit Red Coca Cola" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298265571682</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Rob3artdesign My collection  VW Beetle Volkswagen RWB Kit Red Coca Cola</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$245.00</span>
+                <span class="sale-price">$196.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $49.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298265571682">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298364891330" data-title="1977 lincoln continental mark v gold sealed model 1:18 by mcg model car group">
+            <div class="product-image-wrap">
+              <img src="assets/products/298364891330.jpg" alt="1977 LINCOLN CONTINENTAL MARK V GOLD SEALED MODEL 1:18 by MCG MODEL CAR GROUP" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298364891330</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1977 LINCOLN CONTINENTAL MARK V GOLD SEALED MODEL 1:18 by MCG MODEL CAR GROUP</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$230.00</span>
+                <span class="sale-price">$184.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $46.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298364891330">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298382740039" data-title="1:18 ai model porsche 911 gt3 rs 992 diamond black limited edition">
+            <div class="product-image-wrap">
+              <img src="assets/products/298382740039.jpg" alt="1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298382740039</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$190.00</span>
+                <span class="sale-price">$152.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $38.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298382740039">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298247583172" data-title="modellino auto statico glm bmw 2 serie m235i darwinpro mtc sails widebody 1/18">
+            <div class="product-image-wrap">
+              <img src="assets/products/298247583172.jpg" alt="MODELLINO AUTO STATICO GLM BMW 2 SERIE M235I DARWINPRO MTC SAILS WIDEBODY 1/18" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298247583172</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>MODELLINO AUTO STATICO GLM BMW 2 SERIE M235I DARWINPRO MTC SAILS WIDEBODY 1/18</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$250.00</span>
+                <span class="sale-price">$200.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $50.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298247583172">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297900485195" data-title="renault concept car fluence norev 517990 1/43">
+            <div class="product-image-wrap">
+              <img src="assets/products/297900485195.jpg" alt="RENAULT CONCEPT CAR FLUENCE NOREV 517990 1/43" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297900485195</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>RENAULT CONCEPT CAR FLUENCE NOREV 517990 1/43</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$40.00</span>
+                <span class="sale-price">$32.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $8.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297900485195">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298083586234" data-title="1:18 maserati gran turismo mc luminous green resin model">
+            <div class="product-image-wrap">
+              <img src="assets/products/298083586234.jpg" alt="1:18 Maserati Gran Turismo MC Luminous green Resin Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298083586234</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Maserati Gran Turismo MC Luminous green Resin Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$245.00</span>
+                <span class="sale-price">$196.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $49.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298083586234">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298484541240" data-title="ignition model ig3270 1/18 nissan skyline 2000 gt-x (gc110) purple jdm">
+            <div class="product-image-wrap">
+              <img src="assets/products/298484541240.jpg" alt="Ignition Model IG3270 1/18 Nissan Skyline 2000 GT-X (GC110) Purple JDM" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298484541240</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Ignition Model IG3270 1/18 Nissan Skyline 2000 GT-X (GC110) Purple JDM</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$280.00</span>
+                <span class="sale-price">$224.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $56.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298484541240">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298320997295" data-title="1:18 bmw 325i e36 dtm 1993 jagermeister #9 diecast model rare">
+            <div class="product-image-wrap">
+              <img src="assets/products/298320997295.jpg" alt="1:18 BMW 325i E36 DTM 1993 Jagermeister #9 Diecast Model Rare" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298320997295</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 BMW 325i E36 DTM 1993 Jagermeister #9 Diecast Model Rare</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$275.00</span>
+                <span class="sale-price">$220.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $55.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298320997295">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298364887156" data-title="1:18 biante ford el gt falcon in  blue">
+            <div class="product-image-wrap">
+              <img src="assets/products/298364887156.jpg" alt="1:18 Biante Ford EL GT Falcon in  Blue" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298364887156</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Biante Ford EL GT Falcon in  Blue</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$180.00</span>
+                <span class="sale-price">$144.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $36.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298364887156">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298247583262" data-title="volkswagen kafer 1/18">
+            <div class="product-image-wrap">
+              <img src="assets/products/298247583262.jpg" alt="Volkswagen Kafer 1/18" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298247583262</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Volkswagen Kafer 1/18</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$65.00</span>
+                <span class="sale-price">$52.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $13.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298247583262">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298482701172" data-title="batman v superman batmobile sdcc morbius exclusive">
+            <div class="product-image-wrap">
+              <img src="assets/products/298482701172.jpg" alt="Batman V Superman Batmobile SDCC Morbius Exclusive" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298482701172</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Batman V Superman Batmobile SDCC Morbius Exclusive</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$150.00</span>
+                <span class="sale-price">$120.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $30.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298482701172">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298247582836" data-title="otto models 1/18 scale resin ot481 - toyota sr5 hilux - black">
+            <div class="product-image-wrap">
+              <img src="assets/products/298247582836.jpg" alt="Otto Models 1/18 Scale Resin OT481 - Toyota SR5 Hilux - Black" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298247582836</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Otto Models 1/18 Scale Resin OT481 - Toyota SR5 Hilux - Black</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$235.00</span>
+                <span class="sale-price">$188.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $47.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298247582836">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297826477714" data-title="1/18 vip models porsche 911 carrera gts red off road defected">
+            <div class="product-image-wrap">
               <img src="assets/products/297826477714.jpg" alt="1/18 VIP Models Porsche 911 Carrera GTS Red Off Road Defected" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 297826477714</p>
-              <h3>1/18 VIP Models Porsche 911 Carrera GTS Red Off Road Defected</h3>
               <div class="product-meta">
-                <strong>$260.00</strong>
+                <span>Item #297826477714</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>1/18 VIP Models Porsche 911 Carrera GTS Red Off Road Defected</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$260.00</span>
+                <span class="sale-price">$208.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $52.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297826477714">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="gt spirit 1990 porsche 911 964 rwb coupe blue zm100 le 504pcs 1:18! rare!" data-id="297554575300">
-            <div class="product-media">
+          <article class="product-card" data-id="297554575300" data-title="gt spirit 1990 porsche 911 964 rwb coupe blue zm100 le 504pcs 1:18! rare!">
+            <div class="product-image-wrap">
               <img src="assets/products/297554575300.jpg" alt="GT Spirit 1990 PORSCHE 911 964 RWB COUPE BLUE ZM100 LE 504pcs 1:18! RARE!" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 297554575300</p>
+              <div class="product-meta">
+                <span>Item #297554575300</span>
+                <span>1 remaining</span>
+              </div>
               <h3>GT Spirit 1990 PORSCHE 911 964 RWB COUPE BLUE ZM100 LE 504pcs 1:18! RARE!</h3>
-              <div class="product-meta">
-                <strong>$235.00</strong>
-                <span>1 remaining</span>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$235.00</span>
+                <span class="sale-price">$188.00</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <p class="discount-note">20% off. You save $47.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297554575300">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="*super rare* autoart 1/18 saleen mustang s281 extreme red supercharged" data-id="298108950216">
-            <div class="product-media">
-              <img src="assets/products/298108950216.jpg" alt="*SUPER RARE* Autoart 1/18 SALEEN MUSTANG S281 EXTREME RED SUPERCHARGED" loading="lazy">
+          <article class="product-card" data-id="297577572971" data-title="1/18 authentic collectable ford mustang gt r-spec oxford white  ltd ed of 204">
+            <div class="product-image-wrap">
+              <img src="assets/products/297577572971.jpg" alt="1/18 AUTHENTIC COLLECTABLE Ford Mustang GT R-SPEC OXFORD WHITE  LTD ED OF 204" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298108950216</p>
-              <h3>*SUPER RARE* Autoart 1/18 SALEEN MUSTANG S281 EXTREME RED SUPERCHARGED</h3>
               <div class="product-meta">
-                <strong>$265.00</strong>
+                <span>Item #297577572971</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>1/18 AUTHENTIC COLLECTABLE Ford Mustang GT R-SPEC OXFORD WHITE  LTD ED OF 204</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$200.00</span>
+                <span class="sale-price">$160.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $40.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297577572971">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1/18 rolls royce cullinan limited edition 99pcs diecast fully-opened dealer" data-id="298330937316">
-            <div class="product-media">
-              <img src="assets/products/298330937316.jpg" alt="1/18 Rolls Royce Cullinan limited edition 99pcs Diecast Fully-opened Dealer" loading="lazy">
+          <article class="product-card" data-id="298263710319" data-title="*super rare* autoart 1/18 mercedes benz cl-klasse cl class black c216">
+            <div class="product-image-wrap">
+              <img src="assets/products/298263710319.jpg" alt="*SUPER RARE* Autoart 1/18 Mercedes Benz CL-Klasse CL Class Black C216" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 298330937316</p>
-              <h3>1/18 Rolls Royce Cullinan limited edition 99pcs Diecast Fully-opened Dealer</h3>
               <div class="product-meta">
-                <strong>$350.00</strong>
+                <span>Item #298263710319</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>*SUPER RARE* Autoart 1/18 Mercedes Benz CL-Klasse CL Class Black C216</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$255.00</span>
+                <span class="sale-price">$204.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $51.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298263710319">Add to cart</button>
             </div>
           </article>
 
-          <article class="product-card" data-title="1:18 scale norev 2017 mercedes benz x-class blue pickup truck diecast hand made" data-id="297861548385">
-            <div class="product-media">
-              <img src="assets/products/297861548385.jpg" alt="1:18 Scale Norev 2017 Mercedes Benz X-Class Blue Pickup Truck Diecast Hand Made" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297861548385</p>
-              <h3>1:18 Scale Norev 2017 Mercedes Benz X-Class Blue Pickup Truck Diecast Hand Made</h3>
-              <div class="product-meta">
-                <strong>$280.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="dm 1:18 ford mustang gt 2019 widebodykit pack diecast toys car rhd red miniature" data-id="297804389952">
-            <div class="product-media">
-              <img src="assets/products/297804389952.jpg" alt="DM 1:18 Ford Mustang GT 2019 Widebodykit Pack Diecast Toys Car RHD Red Miniature" loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 297804389952</p>
-              <h3>DM 1:18 Ford Mustang GT 2019 Widebodykit Pack Diecast Toys Car RHD Red Miniature</h3>
-              <div class="product-meta">
-                <strong>$240.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="tsm model - voiture des 24h du mans 1995 n°85 - honda nsx gt2 - 1/18 - tsm181..." data-id="298450090166">
-            <div class="product-media">
-              <img src="assets/products/298450090166.jpg" alt="TSM MODEL - Voiture des 24h du Mans 1995 N°85 - HONDA NSX GT2 - 1/18 - TSM181..." loading="lazy">
-            </div>
-            <div class="product-body">
-              <p class="product-id">Product ID 298450090166</p>
-              <h3>TSM MODEL - Voiture des 24h du Mans 1995 N°85 - HONDA NSX GT2 - 1/18 - TSM181...</h3>
-              <div class="product-meta">
-                <strong>$210.00</strong>
-                <span>1 remaining</span>
-              </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
-            </div>
-          </article>
-
-          <article class="product-card" data-title="1:18 ai model porsche 911 gt3 rs 992 diamond black limited edition" data-id="297966521955">
-            <div class="product-media">
+          <article class="product-card" data-id="297966521955" data-title="1:18 ai model porsche 911 gt3 rs 992 diamond black limited edition">
+            <div class="product-image-wrap">
               <img src="assets/products/297966521955.jpg" alt="1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition" loading="lazy">
             </div>
             <div class="product-body">
-              <p class="product-id">Product ID 297966521955</p>
-              <h3>1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition</h3>
               <div class="product-meta">
-                <strong>$240.00</strong>
+                <span>Item #297966521955</span>
                 <span>1 remaining</span>
               </div>
-              <p class="product-note">PayPal available after availability is confirmed.</p>
+              <h3>1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$240.00</span>
+                <span class="sale-price">$192.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $48.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297966521955">Add to cart</button>
             </div>
           </article>
-      </div>
-    </section>
 
-    <section class="band" id="shipping">
-      <div class="section">
-        <div class="section-title">
-          <h2>Flat shipping rates</h2>
-          <p>Simple shipping prices for Basel Carz orders.</p>
-        </div>
-
-        <div class="shipping">
-          <article class="card">
-            <h3>USA Shipping</h3>
-            <div class="price">$30</div>
-            <p>Flat rate shipping within the United States.</p>
+          <article class="product-card" data-id="298272978760" data-title="1:18 dongfeng  warriors 917 jiaolong movie memorial armored car alloy car model">
+            <div class="product-image-wrap">
+              <img src="assets/products/298272978760.jpg" alt="1:18 Dongfeng  Warriors 917 Jiaolong Movie Memorial Armored Car Alloy Car Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298272978760</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Dongfeng  Warriors 917 Jiaolong Movie Memorial Armored Car Alloy Car Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$285.00</span>
+                <span class="sale-price">$228.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $57.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298272978760">Add to cart</button>
+            </div>
           </article>
-          <article class="card">
-            <h3>International Shipping</h3>
-            <div class="price">$100</div>
-            <p>Flat rate shipping for international orders.</p>
+
+          <article class="product-card" data-id="298108950216" data-title="*super rare* autoart 1/18 saleen mustang s281 extreme red supercharged">
+            <div class="product-image-wrap">
+              <img src="assets/products/298108950216.jpg" alt="*SUPER RARE* Autoart 1/18 SALEEN MUSTANG S281 EXTREME RED SUPERCHARGED" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298108950216</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>*SUPER RARE* Autoart 1/18 SALEEN MUSTANG S281 EXTREME RED SUPERCHARGED</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$265.00</span>
+                <span class="sale-price">$212.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $53.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298108950216">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298029943610" data-title="ai model 1/18 992 gt3 rs resin high-quality collection car model green">
+            <div class="product-image-wrap">
+              <img src="assets/products/298029943610.jpg" alt="AI MODEL 1/18 992 GT3 RS Resin High-Quality Collection Car Model Green" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298029943610</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>AI MODEL 1/18 992 GT3 RS Resin High-Quality Collection Car Model Green</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$200.00</span>
+                <span class="sale-price">$160.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $40.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298029943610">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298330937316" data-title="1/18 rolls royce cullinan limited edition 99pcs diecast fully-opened dealer">
+            <div class="product-image-wrap">
+              <img src="assets/products/298330937316.jpg" alt="1/18 Rolls Royce Cullinan limited edition 99pcs Diecast Fully-opened Dealer" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298330937316</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Rolls Royce Cullinan limited edition 99pcs Diecast Fully-opened Dealer</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$350.00</span>
+                <span class="sale-price">$280.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $70.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298330937316">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298108941827" data-title="gt spirit 2008 mercedes benz c-class c63 amg silver le 999pcs 1:18*custmized">
+            <div class="product-image-wrap">
+              <img src="assets/products/298108941827.jpg" alt="GT Spirit 2008 MERCEDES BENZ C-CLASS C63 AMG SILVER LE 999pcs 1:18*Custmized" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298108941827</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>GT Spirit 2008 MERCEDES BENZ C-CLASS C63 AMG SILVER LE 999pcs 1:18*Custmized</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$435.00</span>
+                <span class="sale-price">$348.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $87.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298108941827">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298112996648" data-title="1:18 bmw e39 530i 2003 alpine white resin model car limited edition 27/50">
+            <div class="product-image-wrap">
+              <img src="assets/products/298112996648.jpg" alt="1:18 BMW E39 530i 2003 Alpine White Resin Model Car Limited Edition 27/50" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298112996648</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 BMW E39 530i 2003 Alpine White Resin Model Car Limited Edition 27/50</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$300.00</span>
+                <span class="sale-price">$240.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $60.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298112996648">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297861548385" data-title="1:18 scale norev 2017 mercedes benz x-class blue pickup truck diecast hand made">
+            <div class="product-image-wrap">
+              <img src="assets/products/297861548385.jpg" alt="1:18 Scale Norev 2017 Mercedes Benz X-Class Blue Pickup Truck Diecast Hand Made" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297861548385</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Scale Norev 2017 Mercedes Benz X-Class Blue Pickup Truck Diecast Hand Made</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$280.00</span>
+                <span class="sale-price">$224.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $56.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297861548385">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297373652524" data-title="almost real land rover defender 110 1/18 scale model car green">
+            <div class="product-image-wrap">
+              <img src="assets/products/297373652524.jpg" alt="Almost Real Land Rover Defender 110 1/18 SCALE MODEL CAR Green" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297373652524</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Almost Real Land Rover Defender 110 1/18 SCALE MODEL CAR Green</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$275.00</span>
+                <span class="sale-price">$220.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $55.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297373652524">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297804389952" data-title="dm 1:18 ford mustang gt 2019 widebodykit pack diecast toys car rhd red miniature">
+            <div class="product-image-wrap">
+              <img src="assets/products/297804389952.jpg" alt="DM 1:18 Ford Mustang GT 2019 Widebodykit Pack Diecast Toys Car RHD Red Miniature" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297804389952</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>DM 1:18 Ford Mustang GT 2019 Widebodykit Pack Diecast Toys Car RHD Red Miniature</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$240.00</span>
+                <span class="sale-price">$192.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $48.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297804389952">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297756710631" data-title="pop race 1/18 fk8 civic type r red diecast model car">
+            <div class="product-image-wrap">
+              <img src="assets/products/297756710631.jpg" alt="POP RACE 1/18 FK8 Civic Type R Red Diecast Model Car" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297756710631</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>POP RACE 1/18 FK8 Civic Type R Red Diecast Model Car</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$230.00</span>
+                <span class="sale-price">$184.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $46.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297756710631">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297900498701" data-title="norev box renault alpine - celebration 60 years dieppe factory 2015 scale 1/43">
+            <div class="product-image-wrap">
+              <img src="assets/products/297900498701.jpg" alt="Norev Box Renault Alpine - Celebration 60 Years Dieppe Factory 2015 Scale 1/43" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297900498701</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Norev Box Renault Alpine - Celebration 60 Years Dieppe Factory 2015 Scale 1/43</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$40.00</span>
+                <span class="sale-price">$32.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $8.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297900498701">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297753587010" data-title="1:18 authentic collectables 2020 ford mustang gt r-spec velocity blue">
+            <div class="product-image-wrap">
+              <img src="assets/products/297753587010.jpg" alt="1:18 Authentic Collectables 2020 Ford Mustang GT R-Spec Velocity Blue" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297753587010</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Authentic Collectables 2020 Ford Mustang GT R-Spec Velocity Blue</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$190.00</span>
+                <span class="sale-price">$152.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $38.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297753587010">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298047276401" data-title="otto(ottomobile) 1:18 scale bmw e38 750il sedan - white ot609 (750 il) l.e 1500">
+            <div class="product-image-wrap">
+              <img src="assets/products/298047276401.jpg" alt="OTTO(OTTOmobile) 1:18 scale BMW E38 750iL Sedan - White OT609 (750 iL) L.E 1500" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298047276401</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>OTTO(OTTOmobile) 1:18 scale BMW E38 750iL Sedan - White OT609 (750 iL) L.E 1500</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$245.00</span>
+                <span class="sale-price">$196.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $49.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298047276401">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297865398152" data-title="1/18 scale chevrolet equinox silver diecast car model toy collection gift">
+            <div class="product-image-wrap">
+              <img src="assets/products/297865398152.jpg" alt="1/18 Scale Chevrolet Equinox Silver DieCast Car Model Toy Collection Gift" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297865398152</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Scale Chevrolet Equinox Silver DieCast Car Model Toy Collection Gift</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$150.00</span>
+                <span class="sale-price">$120.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $30.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297865398152">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297711969809" data-title="1:18 gsmodel lamborghini huracan liberty walk lbwk blue resin model">
+            <div class="product-image-wrap">
+              <img src="assets/products/297711969809.jpg" alt="1:18 GSModel Lamborghini Huracan Liberty Walk LBWK Blue Resin Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297711969809</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 GSModel Lamborghini Huracan Liberty Walk LBWK Blue Resin Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$268.00</span>
+                <span class="sale-price">$214.40</span>
+              </div>
+              <p class="discount-note">20% off. You save $53.60.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297711969809">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298279909553" data-title="bmw z8 kyosho 1/18">
+            <div class="product-image-wrap">
+              <img src="assets/products/298279909553.jpg" alt="BMW Z8 Kyosho 1/18" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298279909553</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>BMW Z8 Kyosho 1/18</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$70.00</span>
+                <span class="sale-price">$56.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $14.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298279909553">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298450090166" data-title="tsm model - voiture des 24h du mans 1995 n°85 - honda nsx gt2 - 1/18 - tsm181...">
+            <div class="product-image-wrap">
+              <img src="assets/products/298450090166.jpg" alt="TSM MODEL - Voiture des 24h du Mans 1995 N°85 - HONDA NSX GT2 - 1/18 - TSM181..." loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298450090166</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>TSM MODEL - Voiture des 24h du Mans 1995 N°85 - HONDA NSX GT2 - 1/18 - TSM181...</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$210.00</span>
+                <span class="sale-price">$168.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $42.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298450090166">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297298187219" data-title="1:18 scale spyder martini 918 alloy miniature diecast metal car model">
+            <div class="product-image-wrap">
+              <img src="assets/products/297298187219.jpg" alt="1:18 Scale Spyder Martini 918 Alloy Miniature Diecast Metal Car Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297298187219</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Scale Spyder Martini 918 Alloy Miniature Diecast Metal Car Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$55.00</span>
+                <span class="sale-price">$44.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $11.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297298187219">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297759872284" data-title="maxima models 1:18 scale resin model car bmw m5 blue new in box">
+            <div class="product-image-wrap">
+              <img src="assets/products/297759872284.jpg" alt="Maxima Models 1:18 Scale Resin Model Car BMW M5 Blue New in Box" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297759872284</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Maxima Models 1:18 Scale Resin Model Car BMW M5 Blue New in Box</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$230.00</span>
+                <span class="sale-price">$184.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $46.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297759872284">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297493775121" data-title="norev 2023 porsche 718 cayman gt4 rs w/ weissach pkg brewster green 1:18 187250">
+            <div class="product-image-wrap">
+              <img src="assets/products/297493775121.jpg" alt="Norev 2023 Porsche 718 Cayman GT4 RS w/ Weissach Pkg Brewster Green 1:18 187250" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297493775121</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Norev 2023 Porsche 718 Cayman GT4 RS w/ Weissach Pkg Brewster Green 1:18 187250</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$185.00</span>
+                <span class="sale-price">$148.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $37.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297493775121">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297983985854" data-title="engup scale 1:18 toyota gr86 resin rare">
+            <div class="product-image-wrap">
+              <img src="assets/products/297983985854.jpg" alt="ENGUP Scale 1:18 Toyota GR86 Resin Rare" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297983985854</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>ENGUP Scale 1:18 Toyota GR86 Resin Rare</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$245.00</span>
+                <span class="sale-price">$196.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $49.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297983985854">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297641865121" data-title="motorhelix 1/18 scale mercedes benz mh020gb brabus bronze 800">
+            <div class="product-image-wrap">
+              <img src="assets/products/297641865121.jpg" alt="Motorhelix 1/18 Scale Mercedes Benz MH020GB Brabus Bronze 800" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297641865121</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Motorhelix 1/18 Scale Mercedes Benz MH020GB Brabus Bronze 800</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$445.00</span>
+                <span class="sale-price">$356.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $89.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297641865121">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297497935972" data-title="1:18 pagani huayra white carbon fiber yy model resin | display base | rare ltd">
+            <div class="product-image-wrap">
+              <img src="assets/products/297497935972.jpg" alt="1:18 Pagani Huayra White Carbon Fiber YY Model Resin | Display Base | Rare LTD" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297497935972</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Pagani Huayra White Carbon Fiber YY Model Resin | Display Base | Rare LTD</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$275.00</span>
+                <span class="sale-price">$220.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $55.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297497935972">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297642164966" data-title="maxima models 1:18 scale resin model car bmw m5 white new in box">
+            <div class="product-image-wrap">
+              <img src="assets/products/297642164966.jpg" alt="Maxima Models 1:18 Scale Resin Model Car BMW M5 White New in Box" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297642164966</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Maxima Models 1:18 Scale Resin Model Car BMW M5 White New in Box</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$225.00</span>
+                <span class="sale-price">$180.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $45.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297642164966">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297661068063" data-title="bos 1/18 1976 cadillac eldorado convertible 1976 bronze metallic resin car model">
+            <div class="product-image-wrap">
+              <img src="assets/products/297661068063.jpg" alt="Bos 1/18 1976 Cadillac Eldorado Convertible 1976 Bronze Metallic Resin Car Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297661068063</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Bos 1/18 1976 Cadillac Eldorado Convertible 1976 Bronze Metallic Resin Car Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$255.00</span>
+                <span class="sale-price">$204.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $51.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297661068063">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297465570287" data-title="gt spirit 1:18 porsche 911 964 rwb red gt083 – rare resin model">
+            <div class="product-image-wrap">
+              <img src="assets/products/297465570287.jpg" alt="GT Spirit 1:18 Porsche 911 964 RWB Red GT083 – Rare Resin Model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297465570287</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>GT Spirit 1:18 Porsche 911 964 RWB Red GT083 – Rare Resin Model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$240.00</span>
+                <span class="sale-price">$192.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $48.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297465570287">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297295743490" data-title="simulation 1:18 aventador alloy car boy collection model ornaments car toy model">
+            <div class="product-image-wrap">
+              <img src="assets/products/297295743490.jpg" alt="Simulation 1:18 Aventador alloy car boy collection model ornaments car toy model" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297295743490</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Simulation 1:18 Aventador alloy car boy collection model ornaments car toy model</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$55.00</span>
+                <span class="sale-price">$44.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $11.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297295743490">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297910171522" data-title="1/18 ai model porsche 911 gt3 rs 992 persian metallic yellow limited">
+            <div class="product-image-wrap">
+              <img src="assets/products/297910171522.jpg" alt="1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Yellow Limited" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297910171522</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Yellow Limited</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$265.00</span>
+                <span class="sale-price">$212.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $53.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297910171522">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297871857635" data-title="norev 1/18 alloy diecast car model porsche porsche 911 gt3 white costmized">
+            <div class="product-image-wrap">
+              <img src="assets/products/297871857635.jpg" alt="NOREV 1/18 Alloy diecast car model Porsche Porsche 911 GT3 White Costmized" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297871857635</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>NOREV 1/18 Alloy diecast car model Porsche Porsche 911 GT3 White Costmized</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$320.00</span>
+                <span class="sale-price">$256.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $64.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297871857635">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298272972661" data-title="ertl american muscle 7220 1/18 scale mcdonalds ford thunderbird diecast race car">
+            <div class="product-image-wrap">
+              <img src="assets/products/298272972661.jpg" alt="Ertl American Muscle 7220 1/18 Scale McDonalds Ford Thunderbird Diecast Race Car" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298272972661</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Ertl American Muscle 7220 1/18 Scale McDonalds Ford Thunderbird Diecast Race Car</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$35.35</span>
+                <span class="sale-price">$28.28</span>
+              </div>
+              <p class="discount-note">20% off. You save $7.07.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298272972661">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297937141100" data-title="gt spirit 1/18 mercedes-benz mb g-class maybach g650 (black) limited resin">
+            <div class="product-image-wrap">
+              <img src="assets/products/297937141100.jpg" alt="GT Spirit 1/18 Mercedes-Benz MB G-Class Maybach G650 (Black) Limited Resin" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297937141100</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>GT Spirit 1/18 Mercedes-Benz MB G-Class Maybach G650 (Black) Limited Resin</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$225.00</span>
+                <span class="sale-price">$180.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $45.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297937141100">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297591488234" data-title="1/18 otto ottomobile nissan patrol gr resin graphite red  hand made">
+            <div class="product-image-wrap">
+              <img src="assets/products/297591488234.jpg" alt="1/18 Otto Ottomobile Nissan Patrol GR Resin GRAPHITE Red  Hand Made" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297591488234</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Otto Ottomobile Nissan Patrol GR Resin GRAPHITE Red  Hand Made</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$390.00</span>
+                <span class="sale-price">$312.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $78.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297591488234">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297210838617" data-title="1:18 volkswagen jetta model diecast metal green customized wheels hand made">
+            <div class="product-image-wrap">
+              <img src="assets/products/297210838617.jpg" alt="1:18 Volkswagen JETTA Model Diecast Metal Green Customized Wheels Hand Made" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297210838617</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Volkswagen JETTA Model Diecast Metal Green Customized Wheels Hand Made</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$150.00</span>
+                <span class="sale-price">$120.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $30.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297210838617">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298203680517" data-title="jeff burton #8 raybestos ford thunderbird 1995 ertl 1/18 diecast car">
+            <div class="product-image-wrap">
+              <img src="assets/products/298203680517.jpg" alt="Jeff Burton #8 Raybestos Ford Thunderbird 1995 Ertl 1/18 Diecast Car" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298203680517</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Jeff Burton #8 Raybestos Ford Thunderbird 1995 Ertl 1/18 Diecast Car</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$33.33</span>
+                <span class="sale-price">$26.66</span>
+              </div>
+              <p class="discount-note">20% off. You save $6.67.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298203680517">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297736089919" data-title="honda pop race 1/18 scale fk8 civic type r custom blue finished product  resin">
+            <div class="product-image-wrap">
+              <img src="assets/products/297736089919.jpg" alt="Honda Pop Race 1/18 Scale Fk8 Civic Type R Custom Blue Finished Product  Resin" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297736089919</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Honda Pop Race 1/18 Scale Fk8 Civic Type R Custom Blue Finished Product  Resin</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$225.00</span>
+                <span class="sale-price">$180.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $45.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297736089919">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297900442572" data-title="1:18 rolls royce rr cullinan diecast model car display blue silver/red silver">
+            <div class="product-image-wrap">
+              <img src="assets/products/297900442572.jpg" alt="1:18 Rolls Royce RR Cullinan Diecast Model Car Display Blue silver/Red silver" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297900442572</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Rolls Royce RR Cullinan Diecast Model Car Display Blue silver/Red silver</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$375.00</span>
+                <span class="sale-price">$300.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $75.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297900442572">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="296756092854" data-title="rare gt spirit 1:18 scale ford mustang shelby gt red 2016 - ltd ed 2000 resin">
+            <div class="product-image-wrap">
+              <img src="assets/products/296756092854.jpg" alt="RARE GT Spirit 1:18 Scale Ford Mustang Shelby GT Red 2016 - Ltd Ed 2000 Resin" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #296756092854</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>RARE GT Spirit 1:18 Scale Ford Mustang Shelby GT Red 2016 - Ltd Ed 2000 Resin</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$270.00</span>
+                <span class="sale-price">$216.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $54.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="296756092854">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297910169138" data-title="1/18 ai model porsche 911 gt3 rs 992 persian metallic red limited">
+            <div class="product-image-wrap">
+              <img src="assets/products/297910169138.jpg" alt="1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Red Limited" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297910169138</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Red Limited</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$265.00</span>
+                <span class="sale-price">$212.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $53.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297910169138">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297984065708" data-title="mclaren f1 xp5 1:18 scale diecast model by lcd models – highly detailed silver">
+            <div class="product-image-wrap">
+              <img src="assets/products/297984065708.jpg" alt="McLaren F1 XP5 1:18 Scale Diecast Model by LCD Models – Highly Detailed Silver" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297984065708</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>McLaren F1 XP5 1:18 Scale Diecast Model by LCD Models – Highly Detailed Silver</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$295.00</span>
+                <span class="sale-price">$236.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $59.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297984065708">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="298269764648" data-title="best of show 1/18 scale bos347 - ford tanus 17m p2 - red/white">
+            <div class="product-image-wrap">
+              <img src="assets/products/298269764648.jpg" alt="Best Of Show 1/18 Scale BOS347 - Ford Tanus 17M P2 - Red/White" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #298269764648</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>Best Of Show 1/18 Scale BOS347 - Ford Tanus 17M P2 - Red/White</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$200.00</span>
+                <span class="sale-price">$160.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $40.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="298269764648">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297294300380" data-title="1/18 toyota land cruiser lc300 diecast model car toy collectible kids gifts toy">
+            <div class="product-image-wrap">
+              <img src="assets/products/297294300380.jpg" alt="1/18 Toyota Land Cruiser LC300 Diecast Model Car Toy Collectible Kids Gifts Toy" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297294300380</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1/18 Toyota Land Cruiser LC300 Diecast Model Car Toy Collectible Kids Gifts Toy</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$55.00</span>
+                <span class="sale-price">$44.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $11.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297294300380">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="297579960197" data-title="1:18 ford mustang r-spec -- twister orange -- authentic collectables">
+            <div class="product-image-wrap">
+              <img src="assets/products/297579960197.jpg" alt="1:18 Ford Mustang R-SPEC -- Twister Orange -- Authentic Collectables" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span>Item #297579960197</span>
+                <span>1 remaining</span>
+              </div>
+              <h3>1:18 Ford Mustang R-SPEC -- Twister Orange -- Authentic Collectables</h3>
+              <div class="price-row" aria-label="Price with discount">
+                <span class="original-price">$210.00</span>
+                <span class="sale-price">$168.00</span>
+              </div>
+              <p class="discount-note">20% off. You save $42.00.</p>
+              <button class="button add-button" type="button" data-add-to-cart="297579960197">Add to cart</button>
+            </div>
           </article>
         </div>
-        <p class="note">Shipping details should be confirmed before purchase.</p>
-      </div>
-    </section>
+        <p class="no-results" id="no-results">No products match your search.</p>
+      </section>
 
-    <section class="section" id="ordering">
-      <div class="section-title">
-        <h2>How ordering works</h2>
-        <p>No direct checkout is active on this website right now. Orders are confirmed first, then paid through PayPal.</p>
-      </div>
-
-      <div class="grid steps">
-        <article class="card step">
-          <h3>Choose a product</h3>
-          <p>Find the model you want and note the product ID shown on the card.</p>
-        </article>
-        <article class="card step">
-          <h3>Confirm availability</h3>
-          <p>Confirm the exact item, condition, price, and shipping before payment.</p>
-        </article>
-        <article class="card step">
-          <h3>Pay with PayPal</h3>
-          <p>Complete payment after the order details are confirmed.</p>
-        </article>
-      </div>
-    </section>
+      <aside class="cart-panel" id="cart-panel" aria-label="Shopping cart">
+        <h2>Your Cart</h2>
+        <p class="cart-note">Add items, choose shipping, then pay with PayPal after checkout is activated.</p>
+        <p class="empty-cart" id="empty-cart">Your cart is empty.</p>
+        <div class="cart-items" id="cart-items"></div>
+        <label class="shipping-field" for="shipping-zone">
+          Shipping
+          <select id="shipping-zone">
+            <option value="usa">USA flat shipping - $30.00</option>
+            <option value="international">International flat shipping - $100.00</option>
+          </select>
+        </label>
+        <div class="totals" aria-live="polite">
+          <div><span>Original subtotal</span><strong id="original-subtotal">$0.00</strong></div>
+          <div><span>Discount</span><strong id="discount-total">-$0.00</strong></div>
+          <div><span>Sale subtotal</span><strong id="sale-subtotal">$0.00</strong></div>
+          <div><span>Shipping</span><strong id="shipping-total">$0.00</strong></div>
+          <div class="total-row"><span>Total</span><strong id="cart-total">$0.00</strong></div>
+        </div>
+        <button class="button" id="paypal-button" type="button">Pay with PayPal</button>
+        <p class="paypal-message" id="paypal-message">PayPal checkout needs your PayPal business email or merchant ID to go live.</p>
+      </aside>
+    </div>
   </main>
 
   <footer class="footer">
-    <span>? 2026 Basel Carz</span>
-    <span>PayPal accepted</span>
+    <div class="footer-inner">
+      <span>Basel Carz</span>
+      <span>USA shipping $30. International shipping $100.</span>
+    </div>
   </footer>
 
   <script>
-    const searchInput = document.getElementById('inventory-search');
-    const cards = Array.from(document.querySelectorAll('.product-card'));
-    const visibleCount = document.getElementById('visible-count');
-    const emptyState = document.getElementById('empty-state');
+const PRODUCTS = [{"id":"298446787040","title":"Aston Martin One-77 1:18 Tecnomodel Resin Bronze Pearl V12 Supercar","originalPrice":250,"salePrice":200,"savings":50,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298446787040.jpg"},{"id":"298484534704","title":"Cult Models 1:18 Scale 1976 Cadillac Seville Silver resin car model Defected","originalPrice":275,"salePrice":220,"savings":55,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298484534704.jpg"},{"id":"298451832092","title":"AMC 1/18 Cadillac Eldorado Biarritz 1980 Green Two-Door Luxury Sedan Model","originalPrice":300,"salePrice":240,"savings":60,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298451832092.jpg"},{"id":"298047727233","title":"Cult Models 1:18 Scale 1976 Cadillac Seville Resin Car Model--Light Blue","originalPrice":300,"salePrice":240,"savings":60,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298047727233.jpg"},{"id":"298128424225","title":"1:18 DCM BMW M3 GTR E46 2001 Need For Speed Metal Blue Diecast (defected)","originalPrice":385,"salePrice":308,"savings":77,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298128424225.jpg"},{"id":"297164464523","title":"MCG 1/18 - CHEVROLET CAPRICE - 1987 - 18267S","originalPrice":190,"salePrice":152,"savings":38,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297164464523.jpg"},{"id":"298402524149","title":"1/18 GL Models Rolls Royce Cullinan in 39 pcs","originalPrice":260,"salePrice":208,"savings":52,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298402524149.jpg"},{"id":"298026979383","title":"1:18 Diecast Masters 2019 Ford MUSTANG Gt 5.0 Coupe LHD Matt Black","originalPrice":180,"salePrice":144,"savings":36,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298026979383.jpg"},{"id":"297910222518","title":"JUC 1/18 Lamborghini Aventador LB AVENTADOR Blue Limited Edition Used","originalPrice":345,"salePrice":276,"savings":69,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297910222518.jpg"},{"id":"298269771507","title":"1/18 Scale 2020 Toyota TRD Camry Sportivo Diecast Supersonic Custmized","originalPrice":235,"salePrice":188,"savings":47,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298269771507.jpg"},{"id":"298272974125","title":"1:18 2025 BMW X5 M White","originalPrice":85,"salePrice":68,"savings":17,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298272974125.jpg"},{"id":"297882213973","title":"1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Blue Limited","originalPrice":265,"salePrice":212,"savings":53,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297882213973.jpg"},{"id":"298293186747","title":"Packard Rider 1953 Dark Red Cavalier BoS 1/18 BOS Model Resin","originalPrice":245,"salePrice":196,"savings":49,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298293186747.jpg"},{"id":"298247582673","title":"Triumph TR2 1954 Macau Grand Prix Winner – 1:18 Scale Eddie Carvalho #5","originalPrice":220,"salePrice":176,"savings":44,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298247582673.jpg"},{"id":"298405740797","title":"Runner 1:18 Lexus RC-F Brown LV Livery Resin Model Limited Edition 10 of 20","originalPrice":270,"salePrice":216,"savings":54,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298405740797.jpg"},{"id":"298382740287","title":"Dodge Charger SRT Hellcat Redeye White Black 2021 GT Spirit 1/18  No Box","originalPrice":210,"salePrice":168,"savings":42,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298382740287.jpg"},{"id":"298203681220","title":"1/18 GT-Spirit PORSCHE 911 TURBO (997) LIBERTY WALK LB Exclusive Edition-KJ011","originalPrice":230,"salePrice":184,"savings":46,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298203681220.jpg"},{"id":"297565581758","title":"GT Spirit  1/18 Porsche 911 TYPE 964 RWB Rauh-Welt Hoonigan GT732","originalPrice":235,"salePrice":188,"savings":47,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297565581758.jpg"},{"id":"297515949502","title":"MCG 1/18 - BMW SERIE 5 TOURING (E34) - 1991 - Customized Hand Made","originalPrice":250,"salePrice":200,"savings":50,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297515949502.jpg"},{"id":"298446811288","title":"1/18 Ivy Models Lexus LS 430 in Gloss White  99 pieces Leather base","originalPrice":200,"salePrice":160,"savings":40,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298446811288.jpg"},{"id":"298341527295","title":"Hot Wheels Dropstars Nissan Titan 1/18 White Custom Lifted Truck UAV Diecast","originalPrice":300,"salePrice":240,"savings":60,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298341527295.jpg"},{"id":"298457839834","title":"GL Model Lamborghini Aventador Roadster SVJ Spearmint Green  1:18 WITH DISPLAY","originalPrice":245,"salePrice":196,"savings":49,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298457839834.jpg"},{"id":"298402524417","title":"Tecnomodel 1:18 McLaren Elva 2022 matte red supercar model Defected","originalPrice":155,"salePrice":124,"savings":31,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298402524417.jpg"},{"id":"297865004922","title":"1/18 Ignition Model Subaru Impreza WRX (CBA-VAB) STI Blue Metallic IG3609","originalPrice":440,"salePrice":352,"savings":88,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297865004922.jpg"},{"id":"296711990844","title":"Tuned BMW 325i E30 Black Color Norev 1/18 Scale Diecast - (Hand Made) Customized","originalPrice":240,"salePrice":192,"savings":48,"currency":"USD","quantityText":"1 remaining","image":"assets/products/296711990844.jpg"},{"id":"298326559746","title":"1:18 LCD Lexus LX600 Alloy Metal Car Model Collection Ornament","originalPrice":220,"salePrice":176,"savings":44,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298326559746.jpg"},{"id":"298265571682","title":"1/18 Rob3artdesign My collection  VW Beetle Volkswagen RWB Kit Red Coca Cola","originalPrice":245,"salePrice":196,"savings":49,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298265571682.jpg"},{"id":"298364891330","title":"1977 LINCOLN CONTINENTAL MARK V GOLD SEALED MODEL 1:18 by MCG MODEL CAR GROUP","originalPrice":230,"salePrice":184,"savings":46,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298364891330.jpg"},{"id":"298382740039","title":"1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition","originalPrice":190,"salePrice":152,"savings":38,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298382740039.jpg"},{"id":"298247583172","title":"MODELLINO AUTO STATICO GLM BMW 2 SERIE M235I DARWINPRO MTC SAILS WIDEBODY 1/18","originalPrice":250,"salePrice":200,"savings":50,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298247583172.jpg"},{"id":"297900485195","title":"RENAULT CONCEPT CAR FLUENCE NOREV 517990 1/43","originalPrice":40,"salePrice":32,"savings":8,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297900485195.jpg"},{"id":"298083586234","title":"1:18 Maserati Gran Turismo MC Luminous green Resin Model","originalPrice":245,"salePrice":196,"savings":49,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298083586234.jpg"},{"id":"298484541240","title":"Ignition Model IG3270 1/18 Nissan Skyline 2000 GT-X (GC110) Purple JDM","originalPrice":280,"salePrice":224,"savings":56,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298484541240.jpg"},{"id":"298320997295","title":"1:18 BMW 325i E36 DTM 1993 Jagermeister #9 Diecast Model Rare","originalPrice":275,"salePrice":220,"savings":55,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298320997295.jpg"},{"id":"298364887156","title":"1:18 Biante Ford EL GT Falcon in  Blue","originalPrice":180,"salePrice":144,"savings":36,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298364887156.jpg"},{"id":"298247583262","title":"Volkswagen Kafer 1/18","originalPrice":65,"salePrice":52,"savings":13,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298247583262.jpg"},{"id":"298482701172","title":"Batman V Superman Batmobile SDCC Morbius Exclusive","originalPrice":150,"salePrice":120,"savings":30,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298482701172.jpg"},{"id":"298247582836","title":"Otto Models 1/18 Scale Resin OT481 - Toyota SR5 Hilux - Black","originalPrice":235,"salePrice":188,"savings":47,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298247582836.jpg"},{"id":"297826477714","title":"1/18 VIP Models Porsche 911 Carrera GTS Red Off Road Defected","originalPrice":260,"salePrice":208,"savings":52,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297826477714.jpg"},{"id":"297554575300","title":"GT Spirit 1990 PORSCHE 911 964 RWB COUPE BLUE ZM100 LE 504pcs 1:18! RARE!","originalPrice":235,"salePrice":188,"savings":47,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297554575300.jpg"},{"id":"297577572971","title":"1/18 AUTHENTIC COLLECTABLE Ford Mustang GT R-SPEC OXFORD WHITE  LTD ED OF 204","originalPrice":200,"salePrice":160,"savings":40,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297577572971.jpg"},{"id":"298263710319","title":"*SUPER RARE* Autoart 1/18 Mercedes Benz CL-Klasse CL Class Black C216","originalPrice":255,"salePrice":204,"savings":51,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298263710319.jpg"},{"id":"297966521955","title":"1:18 AI Model Porsche 911 GT3 RS 992 Diamond Black Limited Edition","originalPrice":240,"salePrice":192,"savings":48,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297966521955.jpg"},{"id":"298272978760","title":"1:18 Dongfeng  Warriors 917 Jiaolong Movie Memorial Armored Car Alloy Car Model","originalPrice":285,"salePrice":228,"savings":57,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298272978760.jpg"},{"id":"298108950216","title":"*SUPER RARE* Autoart 1/18 SALEEN MUSTANG S281 EXTREME RED SUPERCHARGED","originalPrice":265,"salePrice":212,"savings":53,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298108950216.jpg"},{"id":"298029943610","title":"AI MODEL 1/18 992 GT3 RS Resin High-Quality Collection Car Model Green","originalPrice":200,"salePrice":160,"savings":40,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298029943610.jpg"},{"id":"298330937316","title":"1/18 Rolls Royce Cullinan limited edition 99pcs Diecast Fully-opened Dealer","originalPrice":350,"salePrice":280,"savings":70,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298330937316.jpg"},{"id":"298108941827","title":"GT Spirit 2008 MERCEDES BENZ C-CLASS C63 AMG SILVER LE 999pcs 1:18*Custmized","originalPrice":435,"salePrice":348,"savings":87,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298108941827.jpg"},{"id":"298112996648","title":"1:18 BMW E39 530i 2003 Alpine White Resin Model Car Limited Edition 27/50","originalPrice":300,"salePrice":240,"savings":60,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298112996648.jpg"},{"id":"297861548385","title":"1:18 Scale Norev 2017 Mercedes Benz X-Class Blue Pickup Truck Diecast Hand Made","originalPrice":280,"salePrice":224,"savings":56,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297861548385.jpg"},{"id":"297373652524","title":"Almost Real Land Rover Defender 110 1/18 SCALE MODEL CAR Green","originalPrice":275,"salePrice":220,"savings":55,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297373652524.jpg"},{"id":"297804389952","title":"DM 1:18 Ford Mustang GT 2019 Widebodykit Pack Diecast Toys Car RHD Red Miniature","originalPrice":240,"salePrice":192,"savings":48,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297804389952.jpg"},{"id":"297756710631","title":"POP RACE 1/18 FK8 Civic Type R Red Diecast Model Car","originalPrice":230,"salePrice":184,"savings":46,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297756710631.jpg"},{"id":"297900498701","title":"Norev Box Renault Alpine - Celebration 60 Years Dieppe Factory 2015 Scale 1/43","originalPrice":40,"salePrice":32,"savings":8,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297900498701.jpg"},{"id":"297753587010","title":"1:18 Authentic Collectables 2020 Ford Mustang GT R-Spec Velocity Blue","originalPrice":190,"salePrice":152,"savings":38,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297753587010.jpg"},{"id":"298047276401","title":"OTTO(OTTOmobile) 1:18 scale BMW E38 750iL Sedan - White OT609 (750 iL) L.E 1500","originalPrice":245,"salePrice":196,"savings":49,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298047276401.jpg"},{"id":"297865398152","title":"1/18 Scale Chevrolet Equinox Silver DieCast Car Model Toy Collection Gift","originalPrice":150,"salePrice":120,"savings":30,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297865398152.jpg"},{"id":"297711969809","title":"1:18 GSModel Lamborghini Huracan Liberty Walk LBWK Blue Resin Model","originalPrice":268,"salePrice":214.4,"savings":53.6,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297711969809.jpg"},{"id":"298279909553","title":"BMW Z8 Kyosho 1/18","originalPrice":70,"salePrice":56,"savings":14,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298279909553.jpg"},{"id":"298450090166","title":"TSM MODEL - Voiture des 24h du Mans 1995 N°85 - HONDA NSX GT2 - 1/18 - TSM181...","originalPrice":210,"salePrice":168,"savings":42,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298450090166.jpg"},{"id":"297298187219","title":"1:18 Scale Spyder Martini 918 Alloy Miniature Diecast Metal Car Model","originalPrice":55,"salePrice":44,"savings":11,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297298187219.jpg"},{"id":"297759872284","title":"Maxima Models 1:18 Scale Resin Model Car BMW M5 Blue New in Box","originalPrice":230,"salePrice":184,"savings":46,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297759872284.jpg"},{"id":"297493775121","title":"Norev 2023 Porsche 718 Cayman GT4 RS w/ Weissach Pkg Brewster Green 1:18 187250","originalPrice":185,"salePrice":148,"savings":37,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297493775121.jpg"},{"id":"297983985854","title":"ENGUP Scale 1:18 Toyota GR86 Resin Rare","originalPrice":245,"salePrice":196,"savings":49,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297983985854.jpg"},{"id":"297641865121","title":"Motorhelix 1/18 Scale Mercedes Benz MH020GB Brabus Bronze 800","originalPrice":445,"salePrice":356,"savings":89,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297641865121.jpg"},{"id":"297497935972","title":"1:18 Pagani Huayra White Carbon Fiber YY Model Resin | Display Base | Rare LTD","originalPrice":275,"salePrice":220,"savings":55,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297497935972.jpg"},{"id":"297642164966","title":"Maxima Models 1:18 Scale Resin Model Car BMW M5 White New in Box","originalPrice":225,"salePrice":180,"savings":45,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297642164966.jpg"},{"id":"297661068063","title":"Bos 1/18 1976 Cadillac Eldorado Convertible 1976 Bronze Metallic Resin Car Model","originalPrice":255,"salePrice":204,"savings":51,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297661068063.jpg"},{"id":"297465570287","title":"GT Spirit 1:18 Porsche 911 964 RWB Red GT083 – Rare Resin Model","originalPrice":240,"salePrice":192,"savings":48,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297465570287.jpg"},{"id":"297295743490","title":"Simulation 1:18 Aventador alloy car boy collection model ornaments car toy model","originalPrice":55,"salePrice":44,"savings":11,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297295743490.jpg"},{"id":"297910171522","title":"1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Yellow Limited","originalPrice":265,"salePrice":212,"savings":53,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297910171522.jpg"},{"id":"297871857635","title":"NOREV 1/18 Alloy diecast car model Porsche Porsche 911 GT3 White Costmized","originalPrice":320,"salePrice":256,"savings":64,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297871857635.jpg"},{"id":"298272972661","title":"Ertl American Muscle 7220 1/18 Scale McDonalds Ford Thunderbird Diecast Race Car","originalPrice":35.35,"salePrice":28.28,"savings":7.07,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298272972661.jpg"},{"id":"297937141100","title":"GT Spirit 1/18 Mercedes-Benz MB G-Class Maybach G650 (Black) Limited Resin","originalPrice":225,"salePrice":180,"savings":45,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297937141100.jpg"},{"id":"297591488234","title":"1/18 Otto Ottomobile Nissan Patrol GR Resin GRAPHITE Red  Hand Made","originalPrice":390,"salePrice":312,"savings":78,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297591488234.jpg"},{"id":"297210838617","title":"1:18 Volkswagen JETTA Model Diecast Metal Green Customized Wheels Hand Made","originalPrice":150,"salePrice":120,"savings":30,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297210838617.jpg"},{"id":"298203680517","title":"Jeff Burton #8 Raybestos Ford Thunderbird 1995 Ertl 1/18 Diecast Car","originalPrice":33.33,"salePrice":26.66,"savings":6.67,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298203680517.jpg"},{"id":"297736089919","title":"Honda Pop Race 1/18 Scale Fk8 Civic Type R Custom Blue Finished Product  Resin","originalPrice":225,"salePrice":180,"savings":45,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297736089919.jpg"},{"id":"297900442572","title":"1:18 Rolls Royce RR Cullinan Diecast Model Car Display Blue silver/Red silver","originalPrice":375,"salePrice":300,"savings":75,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297900442572.jpg"},{"id":"296756092854","title":"RARE GT Spirit 1:18 Scale Ford Mustang Shelby GT Red 2016 - Ltd Ed 2000 Resin","originalPrice":270,"salePrice":216,"savings":54,"currency":"USD","quantityText":"1 remaining","image":"assets/products/296756092854.jpg"},{"id":"297910169138","title":"1/18 AI Model Porsche 911 GT3 RS 992 Persian Metallic Red Limited","originalPrice":265,"salePrice":212,"savings":53,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297910169138.jpg"},{"id":"297984065708","title":"McLaren F1 XP5 1:18 Scale Diecast Model by LCD Models – Highly Detailed Silver","originalPrice":295,"salePrice":236,"savings":59,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297984065708.jpg"},{"id":"298269764648","title":"Best Of Show 1/18 Scale BOS347 - Ford Tanus 17M P2 - Red/White","originalPrice":200,"salePrice":160,"savings":40,"currency":"USD","quantityText":"1 remaining","image":"assets/products/298269764648.jpg"},{"id":"297294300380","title":"1/18 Toyota Land Cruiser LC300 Diecast Model Car Toy Collectible Kids Gifts Toy","originalPrice":55,"salePrice":44,"savings":11,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297294300380.jpg"},{"id":"297579960197","title":"1:18 Ford Mustang R-SPEC -- Twister Orange -- Authentic Collectables","originalPrice":210,"salePrice":168,"savings":42,"currency":"USD","quantityText":"1 remaining","image":"assets/products/297579960197.jpg"}];
+(function clientApp() {
+  const STORE_CONFIG = {
+    currency: 'USD',
+    paypalBusiness: '',
+    shipping: {
+      usa: 30,
+      international: 100
+    }
+  };
 
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim().toLowerCase();
-      let shown = 0;
-      cards.forEach((card) => {
-        const matches = !query || card.dataset.title.includes(query) || card.dataset.id.includes(query);
-        card.classList.toggle('is-hidden', !matches);
-        if (matches) shown += 1;
-      });
-      visibleCount.textContent = shown;
-      emptyState.classList.toggle('is-visible', shown === 0);
+  const productsById = new Map(PRODUCTS.map((product) => [product.id, product]));
+  const searchInput = document.getElementById('inventory-search');
+  const resultCount = document.getElementById('result-count');
+  const noResults = document.getElementById('no-results');
+  const cards = Array.from(document.querySelectorAll('.product-card'));
+  const cartItems = document.getElementById('cart-items');
+  const emptyCart = document.getElementById('empty-cart');
+  const shippingZone = document.getElementById('shipping-zone');
+  const navCartCount = document.getElementById('nav-cart-count');
+  const paypalButton = document.getElementById('paypal-button');
+  const paypalMessage = document.getElementById('paypal-message');
+  const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: STORE_CONFIG.currency });
+  const CART_KEY = 'basel-carz-cart-v1';
+
+  let cart = loadCart();
+
+  function loadCart() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+      if (Array.isArray(saved)) {
+        return saved.filter((id) => productsById.has(id));
+      }
+    } catch (error) {}
+    return [];
+  }
+
+  function saveCart() {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function formatMoney(value) {
+    return money.format(Number(value || 0));
+  }
+
+  function updateSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach((card) => {
+      const haystack = `${card.dataset.title || ''} ${card.dataset.id || ''}`;
+      const isVisible = !query || haystack.includes(query);
+      card.classList.toggle('is-hidden', !isVisible);
+      if (isVisible) visible += 1;
     });
+    resultCount.textContent = `Showing ${visible} product${visible === 1 ? '' : 's'}`;
+    noResults.classList.toggle('is-visible', visible === 0);
+  }
+
+  function addToCart(id) {
+    if (!productsById.has(id)) return;
+    if (!cart.includes(id)) cart.push(id);
+    saveCart();
+    renderCart();
+    document.getElementById('cart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter((itemId) => itemId !== id);
+    saveCart();
+    renderCart();
+  }
+
+  function cartTotals() {
+    const selectedProducts = cart.map((id) => productsById.get(id)).filter(Boolean);
+    const originalSubtotal = selectedProducts.reduce((sum, item) => sum + item.originalPrice, 0);
+    const saleSubtotal = selectedProducts.reduce((sum, item) => sum + item.salePrice, 0);
+    const discountTotal = originalSubtotal - saleSubtotal;
+    const shipping = selectedProducts.length ? STORE_CONFIG.shipping[shippingZone.value] : 0;
+    return {
+      count: selectedProducts.length,
+      originalSubtotal,
+      saleSubtotal,
+      discountTotal,
+      shipping,
+      total: saleSubtotal + shipping
+    };
+  }
+
+  function renderCart() {
+    cartItems.innerHTML = '';
+    cart.forEach((id) => {
+      const product = productsById.get(id);
+      if (!product) return;
+      const item = document.createElement('div');
+      item.className = 'cart-item';
+      item.innerHTML = `
+        <img src="${product.image}" alt="">
+        <div>
+          <strong>${escapeHtml(product.title)}</strong>
+          <span>${formatMoney(product.salePrice)}</span>
+        </div>
+        <button class="remove-item" type="button" aria-label="Remove ${escapeHtml(product.title)}" data-remove="${product.id}">Remove</button>
+      `;
+      cartItems.appendChild(item);
+    });
+
+    const totals = cartTotals();
+    emptyCart.style.display = totals.count ? 'none' : 'block';
+    navCartCount.textContent = String(totals.count);
+    document.getElementById('original-subtotal').textContent = formatMoney(totals.originalSubtotal);
+    document.getElementById('discount-total').textContent = '-' + formatMoney(totals.discountTotal);
+    document.getElementById('sale-subtotal').textContent = formatMoney(totals.saleSubtotal);
+    document.getElementById('shipping-total').textContent = formatMoney(totals.shipping);
+    document.getElementById('cart-total').textContent = formatMoney(totals.total);
+
+    document.querySelectorAll('[data-add-to-cart]').forEach((button) => {
+      const inCart = cart.includes(button.dataset.addToCart);
+      button.classList.toggle('added', inCart);
+      button.textContent = inCart ? 'In cart' : 'Add to cart';
+    });
+
+    if (!totals.count) {
+      paypalMessage.textContent = 'Add at least one item to continue to PayPal.';
+      paypalMessage.className = 'paypal-message';
+    } else if (!STORE_CONFIG.paypalBusiness) {
+      paypalMessage.textContent = 'PayPal checkout needs your PayPal business email or merchant ID to go live.';
+      paypalMessage.className = 'paypal-message error';
+    } else {
+      paypalMessage.textContent = 'Ready to open PayPal checkout.';
+      paypalMessage.className = 'paypal-message ready';
+    }
+  }
+
+  function checkoutWithPaypal() {
+    const totals = cartTotals();
+    if (!totals.count) {
+      paypalMessage.textContent = 'Add at least one item to continue to PayPal.';
+      paypalMessage.className = 'paypal-message error';
+      return;
+    }
+    if (!STORE_CONFIG.paypalBusiness) {
+      paypalMessage.textContent = 'Send your PayPal business email or merchant ID so this button can collect payment.';
+      paypalMessage.className = 'paypal-message error';
+      return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.action = 'https://www.paypal.com/cgi-bin/webscr';
+    form.target = '_blank';
+    form.style.display = 'none';
+
+    const addField = (name, value) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = String(value);
+      form.appendChild(input);
+    };
+
+    addField('cmd', '_cart');
+    addField('upload', '1');
+    addField('business', STORE_CONFIG.paypalBusiness);
+    addField('currency_code', STORE_CONFIG.currency);
+    addField('charset', 'utf-8');
+    addField('no_note', '0');
+    addField('lc', 'US');
+    addField('return', window.location.origin + window.location.pathname);
+    addField('cancel_return', window.location.origin + window.location.pathname + '#cart-panel');
+
+    cart.forEach((id, index) => {
+      const product = productsById.get(id);
+      const n = index + 1;
+      addField(`item_name_${n}`, product.title.slice(0, 127));
+      addField(`item_number_${n}`, product.id);
+      addField(`amount_${n}`, product.salePrice.toFixed(2));
+      addField(`quantity_${n}`, '1');
+    });
+
+    const shippingIndex = cart.length + 1;
+    const shippingLabel = shippingZone.value === 'usa' ? 'USA flat shipping' : 'International flat shipping';
+    addField(`item_name_${shippingIndex}`, shippingLabel);
+    addField(`amount_${shippingIndex}`, totals.shipping.toFixed(2));
+    addField(`quantity_${shippingIndex}`, '1');
+
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>'"]/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[char]));
+  }
+
+  searchInput.addEventListener('input', updateSearch);
+  searchInput.addEventListener('change', updateSearch);
+  searchInput.addEventListener('search', updateSearch);
+  shippingZone.addEventListener('change', renderCart);
+  document.addEventListener('click', (event) => {
+    const addButton = event.target.closest('[data-add-to-cart]');
+    if (addButton) addToCart(addButton.dataset.addToCart);
+
+    const removeButton = event.target.closest('[data-remove]');
+    if (removeButton) removeFromCart(removeButton.dataset.remove);
+  });
+  paypalButton.addEventListener('click', checkoutWithPaypal);
+
+  updateSearch();
+  renderCart();
+})();
   </script>
 </body>
 </html>
