@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Basel Carz | Diecast Model Cars</title>
-  <meta name="description" content="Basel Carz collectible diecast and resin model cars with cart, PayPal checkout, and flat shipping.">
+  <meta name="description" content="Basel Carz collectible diecast and resin model cars with cart, PayPal checkout, and U.S. shipping by cart size.">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,12 +25,13 @@
     <section class="section-title" aria-labelledby="inventory-heading">
       <p class="eyebrow">Current Inventory</p>
       <h1 id="inventory-heading">Basel Carz Inventory</h1>
-      <p class="lead">Browse 85 collectible model cars. Every item has a full photo page, 15% sale pricing, PayPal checkout, and flat shipping.</p>
+      <p class="lead">Browse 85 collectible model cars. Every item has a full photo page, 15% sale pricing, PayPal checkout, and U.S. shipping by cart size.</p>
       <div class="summary-row" aria-label="Store summary">
         <span class="pill">85 products</span>
         <span class="pill">1313 product photos</span>
         <span class="pill">15% off every item</span>
         <span class="pill">USD pricing</span>
+        <span class="pill">U.S. shipping by car count</span>
       </div>
     </section>
     <div class="store-layout">
@@ -1405,16 +1406,37 @@
       </section>
       <aside class="cart-panel" id="cart-panel" aria-label="Shopping cart">
         <h2>Your Cart</h2>
-        <p class="cart-note">Add items, choose shipping, then pay with PayPal.</p>
+        <p class="cart-note">Add items, choose a delivery area, then pay with PayPal when U.S. shipping is available.</p>
         <p class="empty-cart" id="empty-cart">Your cart is empty.</p>
         <div class="cart-items" id="cart-items"></div>
-        <label class="shipping-field" for="shipping-zone">
-          Shipping
-          <select id="shipping-zone">
-            <option value="usa">USA flat shipping - $30.00</option>
-            <option value="international">International flat shipping - $100.00</option>
-          </select>
-        </label>
+        <section class="shipping-section" aria-label="Shipping options">
+          <h3>Shipping</h3>
+          <label class="shipping-field" for="shipping-zone">
+            Delivery area
+            <select id="shipping-zone">
+              <option value="usa">U.S. shipping</option>
+              <option value="international">International order</option>
+            </select>
+          </label>
+          <div class="shipping-rate-card" id="us-shipping-message">
+            <p><strong id="shipping-car-count">0 cars</strong><span id="shipping-rate-note">Add cars to see the U.S. shipping rate.</span></p>
+            <ul class="shipping-rate-list" aria-label="U.S. shipping rates">
+              <li><span>1 car</span><strong>$30</strong></li>
+              <li><span>2 cars</span><strong>$35</strong></li>
+              <li><span>3 cars</span><strong>$38</strong></li>
+              <li><span>4 cars</span><strong>$45</strong></li>
+              <li><span>5 cars</span><strong>$55</strong></li>
+              <li><span>6 cars</span><strong>$65</strong></li>
+            </ul>
+          </div>
+          <div class="international-message" id="international-message" hidden>
+            <p>International buyers: Please contact us on Instagram for a shipping quote, or purchase through our eBay store.</p>
+            <div class="international-actions">
+              <a class="button" id="instagram-link" href="https://www.instagram.com/baselcarz/" target="_blank" rel="noopener">Contact Us on Instagram</a>
+              <a class="button secondary" id="ebay-link" href="https://www.ebay.com/usr/basel.carz" target="_blank" rel="noopener">Shop on eBay</a>
+            </div>
+          </div>
+        </section>
         <div class="totals" aria-live="polite">
           <div><span>Original subtotal</span><strong id="original-subtotal">$0.00</strong></div>
           <div><span>Discount</span><strong id="discount-total">-$0.00</strong></div>
@@ -1427,7 +1449,7 @@
       </aside>
     </div>
   </main>
-  <footer class="footer"><div class="footer-inner"><span>Basel Carz</span><span>USA shipping $30. International shipping $100.</span></div></footer>
+  <footer class="footer"><div class="footer-inner"><span>Basel Carz</span><span>U.S. shipping is calculated by the number of cars in your cart. International buyers, please contact us for a quote.</span></div></footer>
   <script src="/assets/products.js"></script><script src="/assets/store.js"></script>
 </body>
 </html>

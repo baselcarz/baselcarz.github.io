@@ -196,6 +196,12 @@ h1 {
   cursor: pointer;
 }
 .button:hover { background: var(--accent-hover); }
+.button:disabled {
+  border-color: #bdbdbd;
+  background: #d8d8d8;
+  color: #666666;
+  cursor: not-allowed;
+}
 .button.secondary { background: #ffffff; color: var(--text); border-color: var(--line); }
 .button.secondary:hover { background: var(--soft); }
 .button.added { background: #ffffff; color: var(--success); border-color: var(--success); }
@@ -246,7 +252,18 @@ h1 {
   font-weight: 700;
   padding: 2px 0 0 6px;
 }
-.shipping-field { display: grid; gap: 7px; margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+.shipping-section {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--line);
+}
+.shipping-section h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.shipping-field { display: grid; gap: 7px; margin: 0; color: var(--muted); font-size: 14px; }
 .shipping-field select {
   min-height: 42px;
   border: 1px solid var(--line);
@@ -254,6 +271,57 @@ h1 {
   padding: 0 10px;
   background: #ffffff;
   color: var(--text);
+}
+.shipping-rate-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: var(--soft);
+}
+.shipping-rate-card p {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.shipping-rate-card strong { color: var(--text); }
+.shipping-rate-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--muted);
+}
+.shipping-rate-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.shipping-message {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.international-message {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: #ffffff;
+}
+.international-message[hidden] { display: none; }
+.international-message p { margin: 0; color: var(--muted); font-size: 14px; }
+.international-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
 }
 .totals { display: grid; gap: 8px; margin: 0 0 16px; padding: 14px 0 0; border-top: 1px solid var(--line); }
 .totals div { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }

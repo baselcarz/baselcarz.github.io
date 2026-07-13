@@ -3,7 +3,12 @@
   const CONFIG = {
     currency: 'USD',
     paypalBusiness: 'samhouri@mail.ru',
-    shipping: { usa: 30, international: 100 }
+    shipping: {
+      usaRates: { 1: 30, 2: 35, 3: 38, 4: 45, 5: 55, 6: 65 },
+      maxAutomaticUsCars: 6
+    },
+    instagramUrl: 'https://www.instagram.com/baselcarz/',
+    ebayUrl: 'https://www.ebay.com/usr/basel.carz'
   };
   const productsById = new Map(PRODUCTS.map((product) => [product.id, product]));
   const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: CONFIG.currency });
@@ -28,9 +33,23 @@
     const saleSubtotal = selected.reduce((sum, item) => sum + item.salePrice, 0);
     const discountTotal = originalSubtotal - saleSubtotal;
     const shippingSelect = document.getElementById('shipping-zone');
-    const shippingKey = shippingSelect ? shippingSelect.value : 'usa';
-    const shipping = selected.length ? CONFIG.shipping[shippingKey] : 0;
-    return { count: selected.length, originalSubtotal, saleSubtotal, discountTotal, shipping, total: saleSubtotal + shipping };
+    const shippingZone = shippingSelect ? shippingSelect.value : 'usa';
+    const shipping = shippingZone === 'usa' ? getUsShippingRate(selected.length) : null;
+    const checkoutAvailable = selected.length > 0 && shippingZone === 'usa' && shipping !== null;
+    return {
+      count: selected.length,
+      originalSubtotal,
+      saleSubtotal,
+      discountTotal,
+      shipping,
+      shippingZone,
+      checkoutAvailable,
+      total: checkoutAvailable ? saleSubtotal + shipping : saleSubtotal
+    };
+  }
+  function getUsShippingRate(count) {
+    if (!count) return 0;
+    return CONFIG.shipping.usaRates[count] ?? null;
   }
   function addToCart(id) {
     if (!productsById.has(id)) return;
@@ -50,6 +69,7 @@
     const emptyCart = document.getElementById('empty-cart');
     const navCartCount = document.getElementById('nav-cart-count');
     const paypalMessage = document.getElementById('paypal-message');
+    const paypalButton = document.getElementById('paypal-button');
     if (!cartItems) return;
     cartItems.innerHTML = '';
     cart.forEach((id) => {
@@ -69,8 +89,10 @@
     setText('original-subtotal', formatMoney(totals.originalSubtotal));
     setText('discount-total', '-' + formatMoney(totals.discountTotal));
     setText('sale-subtotal', formatMoney(totals.saleSubtotal));
-    setText('shipping-total', formatMoney(totals.shipping));
-    setText('cart-total', formatMoney(totals.total));
+    setText('shipping-car-count', totals.count + ' car' + (totals.count === 1 ? '' : 's'));
+    setText('shipping-total', shippingTotalText(totals));
+    setText('cart-total', cartTotalText(totals));
+    updateShippingSection(totals);
     document.querySelectorAll('[data-add-to-cart]').forEach((button) => {
       const inCart = cart.includes(button.dataset.addToCart);
       button.classList.toggle('added', inCart);
@@ -80,10 +102,49 @@
       if (!totals.count) {
         paypalMessage.textContent = 'Add at least one item to continue to PayPal.';
         paypalMessage.className = 'paypal-message';
+      } else if (totals.shippingZone === 'international') {
+        paypalMessage.textContent = 'International checkout is not available here. Please contact us for a shipping quote.';
+        paypalMessage.className = 'paypal-message error';
+      } else if (totals.shipping === null) {
+        paypalMessage.textContent = 'Please contact us for a U.S. shipping quote for carts over 6 cars.';
+        paypalMessage.className = 'paypal-message error';
       } else {
         paypalMessage.textContent = 'Ready for PayPal checkout.';
         paypalMessage.className = 'paypal-message ready';
       }
+    }
+    if (paypalButton) paypalButton.disabled = !totals.checkoutAvailable;
+  }
+  function shippingTotalText(totals) {
+    if (!totals.count) return formatMoney(0);
+    if (totals.shippingZone === 'international') return 'Quote required';
+    if (totals.shipping === null) return 'Contact for quote';
+    return formatMoney(totals.shipping);
+  }
+  function cartTotalText(totals) {
+    if (!totals.count) return formatMoney(0);
+    if (!totals.checkoutAvailable) return 'Contact for total';
+    return formatMoney(totals.total);
+  }
+  function updateShippingSection(totals) {
+    const rateNote = document.getElementById('shipping-rate-note');
+    const internationalMessage = document.getElementById('international-message');
+    const usMessage = document.getElementById('us-shipping-message');
+    const instagramLink = document.getElementById('instagram-link');
+    const ebayLink = document.getElementById('ebay-link');
+    if (instagramLink) instagramLink.href = CONFIG.instagramUrl;
+    if (ebayLink) ebayLink.href = CONFIG.ebayUrl;
+    if (internationalMessage) internationalMessage.hidden = totals.shippingZone !== 'international';
+    if (usMessage) usMessage.hidden = totals.shippingZone !== 'usa';
+    if (!rateNote) return;
+    if (!totals.count) {
+      rateNote.textContent = 'Add cars to see the U.S. shipping rate.';
+    } else if (totals.shippingZone === 'international') {
+      rateNote.textContent = 'International shipping requires a quote before checkout.';
+    } else if (totals.shipping === null) {
+      rateNote.textContent = 'For more than 6 cars, please contact us for a U.S. shipping quote.';
+    } else {
+      rateNote.textContent = 'U.S. shipping for ' + totals.count + ' car' + (totals.count === 1 ? '' : 's') + ': ' + formatMoney(totals.shipping) + '.';
     }
   }
   function checkoutWithPaypal() {
@@ -92,6 +153,20 @@
     if (!totals.count) {
       if (paypalMessage) {
         paypalMessage.textContent = 'Add at least one item to continue to PayPal.';
+        paypalMessage.className = 'paypal-message error';
+      }
+      return;
+    }
+    if (totals.shippingZone === 'international') {
+      if (paypalMessage) {
+        paypalMessage.textContent = 'International checkout is not available here. Please contact us for a shipping quote.';
+        paypalMessage.className = 'paypal-message error';
+      }
+      return;
+    }
+    if (totals.shipping === null) {
+      if (paypalMessage) {
+        paypalMessage.textContent = 'Please contact us for a U.S. shipping quote for carts over 6 cars.';
         paypalMessage.className = 'paypal-message error';
       }
       return;
@@ -126,8 +201,7 @@
       addField('quantity_' + n, '1');
     });
     const shippingIndex = cart.length + 1;
-    const shippingZone = document.getElementById('shipping-zone');
-    const shippingLabel = shippingZone && shippingZone.value === 'international' ? 'International flat shipping' : 'USA flat shipping';
+    const shippingLabel = 'U.S. shipping for ' + totals.count + ' car' + (totals.count === 1 ? '' : 's');
     addField('item_name_' + shippingIndex, shippingLabel);
     addField('amount_' + shippingIndex, totals.shipping.toFixed(2));
     addField('quantity_' + shippingIndex, '1');
