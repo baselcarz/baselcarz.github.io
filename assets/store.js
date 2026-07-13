@@ -7,7 +7,7 @@
       usaRates: { 1: 30, 2: 35, 3: 38, 4: 45, 5: 55, 6: 65 },
       maxAutomaticUsCars: 6
     },
-    instagramUrl: 'https://www.instagram.com/baselcarz/',
+    instagramUrl: 'https://www.instagram.com/basel_carz/',
     ebayUrl: 'https://www.ebay.com/usr/basel.carz'
   };
   const productsById = new Map(PRODUCTS.map((product) => [product.id, product]));
