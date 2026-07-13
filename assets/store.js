@@ -89,7 +89,6 @@
     setText('original-subtotal', formatMoney(totals.originalSubtotal));
     setText('discount-total', '-' + formatMoney(totals.discountTotal));
     setText('sale-subtotal', formatMoney(totals.saleSubtotal));
-    setText('shipping-car-count', totals.count + ' car' + (totals.count === 1 ? '' : 's'));
     setText('shipping-total', shippingTotalText(totals));
     setText('cart-total', cartTotalText(totals));
     updateShippingSection(totals);
@@ -138,7 +137,7 @@
     if (usMessage) usMessage.hidden = totals.shippingZone !== 'usa';
     if (!rateNote) return;
     if (!totals.count) {
-      rateNote.textContent = 'Add cars to see the U.S. shipping rate.';
+      rateNote.textContent = 'Add cars to see the shipping cost.';
     } else if (totals.shippingZone === 'international') {
       rateNote.textContent = 'International shipping requires a quote before checkout.';
     } else if (totals.shipping === null) {

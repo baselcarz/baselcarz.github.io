@@ -288,21 +288,6 @@ h1 {
   font-size: 14px;
 }
 .shipping-rate-card strong { color: var(--text); }
-.shipping-rate-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 13px;
-  color: var(--muted);
-}
-.shipping-rate-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
 .shipping-message {
   margin: 0;
   color: var(--muted);
