@@ -27,6 +27,18 @@
   function escapeHtml(value) {
     return String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   }
+  function buildOrderId() {
+    const timePart = Date.now().toString(36).toUpperCase();
+    const randomPart = Math.random().toString(36).slice(2, 6).toUpperCase();
+    return 'BCZ' + timePart + randomPart;
+  }
+  function buildPaypalItemName(product) {
+    return ('Item #' + product.id + ' - ' + product.title).slice(0, 127);
+  }
+  function buildPaypalOrderSummary(orderId, selected) {
+    const itemIds = selected.map((product) => product.id).join(' ');
+    return ('Order ' + orderId + ' Items ' + itemIds).slice(0, 255);
+  }
   function cartTotals() {
     const selected = cart.map((id) => productsById.get(id)).filter(Boolean);
     const originalSubtotal = selected.reduce((sum, item) => sum + item.originalPrice, 0);
@@ -171,6 +183,9 @@
       return;
     }
     const form = document.createElement('form');
+    const selected = cart.map((id) => productsById.get(id)).filter(Boolean);
+    const orderId = buildOrderId();
+    const orderSummary = buildPaypalOrderSummary(orderId, selected);
     form.method = 'post';
     form.action = 'https://www.paypal.com/cgi-bin/webscr';
     form.target = '_blank';
@@ -189,19 +204,21 @@
     addField('charset', 'utf-8');
     addField('no_note', '0');
     addField('lc', 'US');
+    addField('invoice', orderId);
+    addField('custom', orderSummary);
     addField('return', window.location.origin + '/');
     addField('cancel_return', window.location.origin + window.location.pathname + '#cart-panel');
-    cart.forEach((id, index) => {
-      const product = productsById.get(id);
+    selected.forEach((product, index) => {
       const n = index + 1;
-      addField('item_name_' + n, product.title.slice(0, 127));
+      addField('item_name_' + n, buildPaypalItemName(product));
       addField('item_number_' + n, product.id);
       addField('amount_' + n, product.salePrice.toFixed(2));
       addField('quantity_' + n, '1');
     });
-    const shippingIndex = cart.length + 1;
-    const shippingLabel = 'U.S. shipping for ' + totals.count + ' car' + (totals.count === 1 ? '' : 's');
+    const shippingIndex = selected.length + 1;
+    const shippingLabel = 'Order ' + orderId + ' - U.S. shipping for ' + totals.count + ' car' + (totals.count === 1 ? '' : 's');
     addField('item_name_' + shippingIndex, shippingLabel);
+    addField('item_number_' + shippingIndex, orderId + 'SHIPPING');
     addField('amount_' + shippingIndex, totals.shipping.toFixed(2));
     addField('quantity_' + shippingIndex, '1');
     document.body.appendChild(form);
