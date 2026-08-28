@@ -25,6 +25,7 @@ SELLER_SEARCH_URL = (
 )
 CSS_VERSION = "gallery-arrows-1"
 STORE_VERSION = "paypal-order-summary-1"
+ANALYTICS_SCRIPT = '<script defer src="https://cdn.counter.dev/script.js" data-id="053e7459-b7b4-402c-ab35-679b0e643cf7" data-utcoffset="-5"></script>'
 
 
 HEADERS = {
@@ -350,6 +351,7 @@ def render_meta(title, description, url, page_type="website"):
   <meta name="twitter:image" content="https://baselcarz.github.io/assets/basel-carz-social-card.jpg?v=social-preview-1">
   <meta name="twitter:image:alt" content="Basel Carz logo with Diecast Model Cars text">
   <link rel="stylesheet" href="/assets/styles.css?v={CSS_VERSION}">
+  {ANALYTICS_SCRIPT}
 </head>
 <body>
 """
