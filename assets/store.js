@@ -253,7 +253,8 @@
     if (!gallery) return;
     const main = document.getElementById('gallery-main-image');
     const count = document.getElementById('gallery-count');
-    const thumbs = Array.from(document.querySelectorAll('[data-gallery-thumb]'));
+    const thumbStrip = gallery.querySelector('.thumb-strip');
+    const thumbs = Array.from(gallery.querySelectorAll('[data-gallery-thumb]'));
     if (!main) return;
     const fallbackImages = thumbs
       .map((thumb) => thumb.querySelector('img')?.getAttribute('src'))
@@ -271,7 +272,17 @@
       if (count) count.textContent = (index + 1) + ' / ' + product.images.length;
       thumbs.forEach((thumb) => thumb.classList.toggle('is-active', Number(thumb.dataset.galleryThumb) === index));
       const active = thumbs.find((thumb) => Number(thumb.dataset.galleryThumb) === index);
-      if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      if (active && thumbStrip) {
+        const stripRect = thumbStrip.getBoundingClientRect();
+        const activeRect = active.getBoundingClientRect();
+        const centeredLeft = thumbStrip.scrollLeft + activeRect.left - stripRect.left - ((stripRect.width - activeRect.width) / 2);
+        const scrollLeft = Math.max(0, centeredLeft);
+        if (typeof thumbStrip.scrollTo === 'function') {
+          thumbStrip.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        } else {
+          thumbStrip.scrollLeft = scrollLeft;
+        }
+      }
     };
     document.querySelectorAll('[data-gallery-prev]').forEach((button) => button.addEventListener('click', () => show(index - 1)));
     document.querySelectorAll('[data-gallery-next]').forEach((button) => button.addEventListener('click', () => show(index + 1)));
