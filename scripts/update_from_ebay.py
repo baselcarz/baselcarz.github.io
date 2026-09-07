@@ -183,15 +183,22 @@ def parse_seller_search_cards(markup):
 def fetch_seller_search_listings():
     try:
         markup = fetch_text(SELLER_SEARCH_URL)
-        SELLER_SEARCH_CACHE.write_text(markup, encoding="utf-8", newline="\n")
+        fresh_items = parse_seller_search_cards(markup)
+        if fresh_items:
+            SELLER_SEARCH_CACHE.write_text(markup, encoding="utf-8", newline="\n")
+            source_items = fresh_items
+        else:
+            raise ValueError("Fresh eBay seller search did not include listing cards")
     except Exception:
         if not SELLER_SEARCH_CACHE.exists():
             powershell_fetch(SELLER_SEARCH_URL, SELLER_SEARCH_CACHE)
         print("seller search: using cached eBay HTML")
-        markup = SELLER_SEARCH_CACHE.read_text(encoding="utf-8", errors="replace")
+        source_items = parse_seller_search_cards(
+            SELLER_SEARCH_CACHE.read_text(encoding="utf-8", errors="replace")
+        )
     listings = []
     seen = set()
-    for item in parse_seller_search_cards(markup):
+    for item in source_items:
         if item["id"] in seen:
             continue
         seen.add(item["id"])
