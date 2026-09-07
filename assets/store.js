@@ -251,11 +251,18 @@
   function initGallery() {
     const gallery = document.querySelector('[data-gallery]');
     if (!gallery) return;
-    const product = productsById.get(gallery.dataset.productId);
-    if (!product || !product.images.length) return;
     const main = document.getElementById('gallery-main-image');
     const count = document.getElementById('gallery-count');
     const thumbs = Array.from(document.querySelectorAll('[data-gallery-thumb]'));
+    if (!main) return;
+    const fallbackImages = thumbs
+      .map((thumb) => thumb.querySelector('img')?.getAttribute('src'))
+      .filter(Boolean);
+    const product = productsById.get(gallery.dataset.productId) || {
+      title: (main.alt || document.title).replace(/\s+photo\s+\d+$/i, '').replace(/\s+\|\s+Basel Carz.*$/i, ''),
+      images: fallbackImages.length ? fallbackImages : [main.getAttribute('src')].filter(Boolean)
+    };
+    if (!product.images.length) return;
     let index = 0;
     const show = (nextIndex) => {
       index = (nextIndex + product.images.length) % product.images.length;
@@ -273,6 +280,21 @@
       if (event.key === 'ArrowLeft') show(index - 1);
       if (event.key === 'ArrowRight') show(index + 1);
     });
+    let swipeStart = null;
+    gallery.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      swipeStart = { x: event.clientX, y: event.clientY };
+    });
+    gallery.addEventListener('pointerup', (event) => {
+      if (!swipeStart) return;
+      const dx = event.clientX - swipeStart.x;
+      const dy = event.clientY - swipeStart.y;
+      swipeStart = null;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      show(dx < 0 ? index + 1 : index - 1);
+    });
+    gallery.addEventListener('pointercancel', () => { swipeStart = null; });
+    main.addEventListener('dragstart', (event) => event.preventDefault());
     show(0);
   }
   document.addEventListener('click', (event) => {

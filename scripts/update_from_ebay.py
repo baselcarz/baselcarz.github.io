@@ -23,8 +23,9 @@ SELLER_SEARCH_URL = (
     "?_dkr=1&iconV2Request=true&_blrs=recall_filtering"
     "&_ssn=basel.carz&_oac=1&_ipg=240"
 )
-CSS_VERSION = "gallery-arrows-1"
-STORE_VERSION = "paypal-order-summary-1"
+CSS_VERSION = "gallery-swipe-1"
+PRODUCTS_VERSION = "inventory-20260907-1"
+STORE_VERSION = "gallery-swipe-1"
 ANALYTICS_SCRIPT = '<script defer src="https://cdn.counter.dev/script.js" data-id="053e7459-b7b4-402c-ab35-679b0e643cf7" data-utcoffset="-5"></script>'
 
 
@@ -451,7 +452,7 @@ def render_footer():
       </div>
     </div>
   </footer>
-  <script src="/assets/products.js"></script><script src="/assets/store.js?v={STORE_VERSION}"></script>
+  <script src="/assets/products.js?v={PRODUCTS_VERSION}"></script><script src="/assets/store.js?v={STORE_VERSION}"></script>
 </body>
 </html>
 """

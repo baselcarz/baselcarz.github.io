@@ -535,12 +535,14 @@ h1 {
   background: #ffffff;
   display: grid;
   place-items: center;
+  touch-action: pan-y;
 }
 .gallery-main img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
+  user-select: none;
 }
 .gallery-arrow {
   position: absolute;
