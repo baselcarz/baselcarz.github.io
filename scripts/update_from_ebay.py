@@ -24,7 +24,7 @@ SELLER_SEARCH_URL = (
     "&_ssn=basel.carz&_oac=1&_ipg=240"
 )
 CSS_VERSION = "gallery-swipe-1"
-PRODUCTS_VERSION = "inventory-20260907-1"
+PRODUCTS_VERSION = "inventory-20260913-1"
 STORE_VERSION = "gallery-scroll-1"
 ANALYTICS_SCRIPT = '<script defer src="https://cdn.counter.dev/script.js" data-id="053e7459-b7b4-402c-ab35-679b0e643cf7" data-utcoffset="-5"></script>'
 
